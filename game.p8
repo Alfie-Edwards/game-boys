@@ -135,7 +135,7 @@ function _update60()
         -- Press buttons.
         if mouse.pressed then
             for _, button in pairs(buttons) do
-                if sqdst(mouse.x, mouse.y, button.x, button.y) <= (button.r * button.r) + 2 then
+                if mouse_is_over_button(button) then
                     button.on_click()
                 end
             end
@@ -156,6 +156,10 @@ end
 
 function lnpx(text) -- length of text in pixels
 	return print(text, 0, 999999)
+end
+
+function mouse_is_over_button(button)
+    return sqdst(mouse.x, mouse.y, button.x, button.y) <= (button.r * button.r) + 2
 end
 
 function draw_lose_screen()
@@ -249,7 +253,12 @@ function _draw()
         rectfill(h.x - 1, h.y - 1, h.x + 1, h.y + 1)
     end
     color(5)
-    circfill(buttons.submit.x, buttons.submit.y, buttons.submit.r)
+    -- todo: palette swap on mouse over.
+    if (mouse_is_over_button(buttons.submit)) then
+        spr(69, buttons.submit.x - 8, buttons.submit.y - 8, 2, 2)
+    else
+        spr(69, buttons.submit.x - 8, buttons.submit.y - 8, 2, 2)
+    end
 
     -- Speech bubble
     if saying then
