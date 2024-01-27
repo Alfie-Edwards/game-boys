@@ -50,7 +50,7 @@ function _init()
 
 	init_people()
 
-    music(0, nil, 0)
+    music(0, 1000, 1)
 
     timers = {}
     laughing = false
@@ -343,6 +343,9 @@ function lose()
 end
 
 function play_laugh(laugh_params)
+    if laughing == false then
+        music(-1, 100, 1)
+    end
     laughing = true
     local sound = laughs[laugh_params.speed + 1][laugh_params.pitch + 1][laugh_params.fun + 1]
     sfx(sound)
@@ -361,6 +364,9 @@ function play_laugh(laugh_params)
     else
         -- If length = 1, queue up setting laughing = false after it's over.
         action = function()
+            if laughing then
+                music(1, 1000, 0)
+            end
             laughing = false
         end
     end
@@ -611,12 +617,12 @@ a60200002440028420304403744039450324502944025430264402e4503445038450384503245026
 9c08000013750190501a05018030167100000000000000000f7500e7500d7500f7000000000000000000c7500b7500000000000000000b7500a75000000000000000009750087500000000000000000000000000
 a4090000185301a7601a760187601674000000000001775016740147300000000000000001703017760167501475013700000000000013740127301370012700137301172012700127201172000000107100f710
 __music__
-00 01020304
-01 0142034a
-02 41020349
+01 01420344
+02 4102034a
+02 41424349
 03 0b424344
 03 0c4e4f44
 00 0d105152
 03 14424344
-00 18424344
+00 18424344 
 
