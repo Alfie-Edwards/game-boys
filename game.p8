@@ -104,6 +104,41 @@ function draw_lose_screen()
 	print(replay_end_text, (64 - replay_text_length / 2) + lnpx(replay_start_text..replay_button), replay_text_y)
 end
 
+max_line_len = 30
+max_lines = 6
+function wrap(text)
+    local lines = {}
+    for _, para in ipairs(split(text, "\n")) do
+        add(lines, "")
+        for _, word in ipairs(split(para, " ", false)) do
+            if (#lines[#lines] + #word + 1) > max_line_len then
+                if #word > max_line_len then
+                    local i = max_line_len - #lines[#lines]
+                    lines[#lines] = lines[#lines]..sub(word, 1, i).." "
+                    i += 1
+                    while i <= #word do
+                        add(lines, sub(word, i, i + max_line_len - 1))
+                        i += max_line_len
+                    end
+                else
+                    add(lines, word.." ")
+                end
+            else
+                lines[#lines] = lines[#lines]..word.." "
+            end
+        end
+    end
+    local result = ""
+    for i, line in ipairs(lines) do
+        if i > 1 then
+            result = result.."\n"
+        end
+        result = result..line
+    end
+    assert(#lines <= max_lines)
+    return result
+end
+
 function _draw()
     cls(4)
 
@@ -136,14 +171,19 @@ function _draw()
 end
 
 function say(paras)
-    if type(paras) == "string" then
-        paras = {paras}
-    end
-    saying = {
-        char = 1,
-        para = 1,
-        paras = paras,
-    }
+	if type(paras) == "string" then
+		paras = {paras}
+	end
+
+	for i,v in ipairs(paras) do
+		paras[i] = wrap(v)
+	end
+
+	saying = {
+		char = 1,
+		para = 1,
+		paras = paras,
+	}
 end
 
 function saying_para_done()
