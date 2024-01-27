@@ -133,7 +133,7 @@ function draw_head(name)
 
 	local head_left = 64 - tiles(4)
 	local head_right = (64 - 1) + tiles(4)
-	local head_top = 2
+	local head_top = 10
 	local head_bottom = head_top + tiles(10)
 
 	-- base

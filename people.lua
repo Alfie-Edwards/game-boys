@@ -110,8 +110,8 @@ people = {
 				less = "please. this is very important to me. not some joke"
 			},
 		},
-		acceptance_text = "that's amazing! I'll fit right in", "they'll never call me land lubber again",
-		rejection_text = "no, no... this won't do at all...", "well, i guess there's always catfish cabaret",
+		acceptance_text = {"that's amazing! I'll fit right in", "they'll never call me land lubber again"},
+		rejection_text = {"no, no... this won't do at all...", "well, i guess there's always catfish cabaret"},
 	},
 	{
 		name = "bobo the clown",
@@ -150,7 +150,7 @@ people = {
 				more = "it's a laugh. it's gotta be a little jovial!",
 			},
 		},
-		acceptance_text = "finally! now i can do what i've always wanted", "be an undertaker, like my father",
+		acceptance_text = {"finally! now i can do what i've always wanted", "be an undertaker, like my father"},
 		rejection_text = "well, i guess everyone will keep laughing at ol' bobo...",
 	},
 	-- {
