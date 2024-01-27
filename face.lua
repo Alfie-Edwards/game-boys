@@ -5,19 +5,12 @@ function draw_rotated_anticlockwise(x, y, w_tiles, h_tiles, map_x, map_y, flip_y
 	local h_px = h_tiles * 8
 
 	for i = 0, h_px - 1 do
-		if flip_y then
-			tline(
-				x + i, (y + w_px),
-				x + i, (y + w_px) - w_px,
-				map_x, map_y + (h_px - i)/8
-			)
-		else
-			tline(
-				x + i, (y + w_px),
-				x + i, (y + w_px) - w_px,
-				map_x, map_y + i/8
-			)
-		end
+		local map_y_idx = flip_y and (h_px - i)/8 or i/8
+		tline(
+			x + i, (y + w_px),
+			x + i, (y + w_px) - w_px,
+			map_x, map_y + map_y_idx
+		)
 	end
 end
 
@@ -28,19 +21,12 @@ function draw_rotated_clockwise(x, y, w_tiles, h_tiles, map_x, map_y, flip_y)
 	local h_px = h_tiles * 8
 
 	for i = 0, h_px - 1 do
-		if flip_y then
-			tline(
-				x + i, y,
-				x + i, y + w_px,
-				map_x, map_y + (h_px - i)/8
-			)
-		else
-			tline(
-				x + i, y,
-				x + i, y + w_px,
-				map_x, map_y + i/8
-			)
-		end
+		local map_y_idx = flip_y and (h_px - i)/8 or i/8
+		tline(
+			x + i, y,
+			x + i, y + w_px,
+			map_x, map_y + map_y_idx
+		)
 	end
 end
 
@@ -77,34 +63,18 @@ function draw_base_right(x, y)
 	draw_rotated_anticlockwise(x, y,
 	                           10, 4,
 	                           0, 0, true)
-
-	-- local w_tiles = 10
-	-- local h_tiles = 4
-
-	-- local w = w_tiles * 8
-	-- local h = h_tiles * 8
-	-- local x = 64 - 1
-	-- local y = 10
-
-	-- for i = 0, h do
-	-- 	tline(
-	-- 		x + i, (y + w),
-	-- 		x + i, (y + w) - w,
-	-- 		0,     (h - i)/8
-	-- 	)
-	-- end
 end
 
 function draw_ear_left(x, y)
-	draw_rotated_clockwise(x, y,
-	                       3, 1,
-	                       10, 0)
+	draw_rotated_anticlockwise(x, y,
+	                           3, 1,
+	                           10, 0)
 end
 
 function draw_ear_right(x, y)
-	draw_rotated_clockwise(x, y,
-	                       3, 1,
-	                       10, 0, true)
+	draw_rotated_anticlockwise(x, y,
+	                           3, 1,
+	                           10, 0, true)
 end
 
 function tiles(x)
@@ -113,7 +83,7 @@ end
 
 function draw_base()
 	pal()
-	-- palt(13)
+	-- palt(13, true)
 
 	local head_left = 64 - tiles(4)
 	local head_right = (64 - 1) + tiles(4)

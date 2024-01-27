@@ -327,11 +327,11 @@ function saying_para_done()
 end
 
 function pal_light_red()
-    -- pal({[0] = 0, 2, -8, 8, 14, 7})
+    pal({[0] = 0, 2, -8, 8, 14, 7})
 end
 
 function pal_dark_blue()
-    -- pal({[0] = 0, -15, 1, -4, 12, 7})
+    pal({[0] = 0, -15, 1, -4, 12, 7})
 end
 
 function lose()
