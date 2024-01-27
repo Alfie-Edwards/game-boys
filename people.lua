@@ -70,9 +70,9 @@ function current_person()
 end
 
 function set_person(person)
-	set_face(person.face, person.skin_tone)
-	set_name(person.name)
-	set_prompt(person.initial_prompt)
+	show_face(person.face, person.skin_tone)
+	show_name(person.name)
+	show_prompt(person.initial_prompt)
 end
 
 function next_person()
@@ -162,6 +162,6 @@ function choose(choice)
 	if adjustment_number > max_adjustments then
 		lose_health()
 	else
-		set_prompt(get_adjustment_prompt(choice))
+		show_prompt(get_adjustment_prompt(choice))
 	end
 end

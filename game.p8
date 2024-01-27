@@ -7,15 +7,15 @@ function lose()
 	print("your score was "..score)
 end
 
-function set_face(face_idx, skin_tone)
+function show_face(face_idx, skin_tone)
 	print("set face to idx "..face_idx..", skin tone "..skin_tone)
 end
 
-function set_name(name)
+function show_name(name)
 	print("set name to "..name)
 end
 
-function set_prompt(prompt)
+function show_prompt(prompt)
 	print("set prompt to "..prompt)
 end
 
