@@ -15,6 +15,32 @@ health = max_health
 score = 0
 lost = false
 
+-- laughs ----------------------
+-- speed, pitch, fun
+laughs = {
+    {
+        {23, 58, 59},
+        {50, 56, 57},
+        {49, 54, 55},
+    },
+    {
+        {30, 26, 29},
+        {51, 38, 52},
+        {21, 22, 53},
+    },
+    {
+        {25, 46, 47},
+        {43, 44, 45},
+        {40, 41, 42},
+    },
+}
+
+-- laugh durations ------------
+laugh_durations = { 2, 1.25, 0.75 }
+
+-- Speech bubble dimensions ---
+max_line_len = 30
+max_lines = 6
 
 function _init()
 	poke(0x5F2D, 1)
@@ -22,6 +48,9 @@ function _init()
 	update_mouse()
 
 	init_people()
+
+    timers = {}
+    laughing = false
 
     sliders = {
         length = { name_x = 8, y = 100, value = 1, grabbed = false },
@@ -113,6 +142,17 @@ function _update60()
             end
         end
     end
+
+    -- Update timers.
+    local i = 1
+    while i <= #timers do
+        if ((t() - timers[i].t0) >= timers[i].length) and (timers[i].cond == nil or timers[i].cond()) then
+            timers[i].action()
+            deli(timers, i)
+        else
+            i += 1
+        end
+    end
 end
 
 function lnpx(text) -- length of text in pixels
@@ -152,8 +192,6 @@ function draw_lose_screen()
 	print(replay_end_text, (64 - replay_text_length / 2) + lnpx(replay_start_text..replay_button), replay_text_y)
 end
 
-max_line_len = 30
-max_lines = 6
 function wrap(text)
     local lines = {}
     for _, para in ipairs(split(text, "\n")) do
@@ -300,7 +338,33 @@ function lose()
 end
 
 function play_laugh(laugh_params)
-	--
+    laughing = true
+    local sound = laughs[laugh_params.speed + 1][laugh_params.pitch + 1][laugh_params.fun + 1]
+    sfx(sound)
+    local action = {}
+
+    -- If length > 1, queue up laugh to replay again after it's over (with length - 1).
+    if laugh_params.length > 0 then
+        action = function()
+            play_laugh({
+                speed = laugh_params.speed,
+                pitch = laugh_params.pitch,
+                fun = laugh_params.fun,
+                length = laugh_params.length - 1,
+            })
+        end
+    else
+        -- If length = 1, queue up setting laughing = false after it's over.
+        action = function()
+            laughing = false
+        end
+    end
+    add(timers, {
+        t0 = t(),
+        length = laugh_durations[laugh_params.speed + 1] * 0.75,
+        action = action,
+    })
+
 end
 
 function show_person(face_idx, skin_tone, name)
