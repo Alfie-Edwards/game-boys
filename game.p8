@@ -47,10 +47,8 @@ max_lines = 6
 function _init()
 	pal_light_red()
 	update_mouse()
-
     timers = {}
     laughing = false
-    music(0, 1000, 1)
 
     sliders = {
         length = { name_x = 8, y = 100, value = 1, grabbed = false },
