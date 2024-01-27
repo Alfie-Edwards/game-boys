@@ -67,8 +67,8 @@ function _update60()
     end
 end
 
-function lnpx(the_text)
-	return #the_text * 4
+function lnpx(text) -- length of text in pixels
+	return #text * 4
 end
 
 function draw_lose_screen()
@@ -168,6 +168,15 @@ function _draw()
             print("♥", 111, 122)
         end
     end
+
+	-- health
+	color(8)
+	local health_str = ""
+	for i = 0, health, 1 do
+		health_str = health_str.."♥"
+	end
+	print(health_str, 128 - (lnpx(health_str) + 14), 4)
+	color(7)
 end
 
 function say(paras)
@@ -187,16 +196,16 @@ function say(paras)
 end
 
 function saying_para_done()
-    return (not saying) or saying.char == #saying.paras[saying.para]
+	return (not saying) or saying.char == #saying.paras[saying.para]
 end
 
 function pal_light_red()
-    pal(0, 0)
-    pal(1, 2)
-    pal(2, -8)
-    pal(3, 8)
-    pal(4, 14)
-    pal(5, 7)
+	pal(0, 0)
+	pal(1, 2)
+	pal(2, -8)
+	pal(3, 8)
+	pal(4, 14)
+	pal(5, 7)
 end
 
 function lose()
@@ -229,11 +238,11 @@ function show_accepted(text, correct_laugh)
 end
 
 function strobe(period, offset)
-    return (t() - (offset or 0)) % (period * 2) < period
+	return (t() - (offset or 0)) % (period * 2) < period
 end
 
 function any_input()
-    return btn(4) or btn(5)
+	return btn(4) or btn(5)
 end
 
 __gfx__
