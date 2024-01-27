@@ -27,35 +27,40 @@ function _init()
 	print("current person is "..current_person().name)
 
 	choose({
-			param1 = 2,
-			param2 = 2,
-			param3 = 0,
+			speed = 2,
+			pitch = 2,
+			fun = 0,
+			length = 0,
 	})
 
 	choose({
-			param1 = 2,
-			param2 = 0,
-			param3 = 0,
+			speed = 2,
+			pitch = 0,
+			fun = 0,
+			length = 1,
 	})
 
 	choose({
-			param1 = 2,
-			param2 = 0,
-			param3 = 2,
+			speed = 2,
+			pitch = 0,
+			fun = 2,
+			length = 1,
 	})
 
 	-- win
 	choose({
-			param1 = 2,
-			param2 = 0,
-			param3 = 1,
+			speed = 2,
+			pitch = 0,
+			fun = 1,
+			length = 1,
 	})
 
-	-- lose
+	-- -- lose
 	-- choose({
-	-- 		param1 = 1,
-	-- 		param2 = 0,
-	-- 		param3 = 1,
+	-- 		speed = 1,
+	-- 		pitch = 0,
+	-- 		fun = 1,
+	-- 		length = 1,
 	-- })
 
 end

@@ -5,36 +5,42 @@ people = {
 		face = 0,
 		skin_tone = 1,
 		current_laugh = {
-			param1 = 0,
-			param2 = 2,
-			param3 = 1,
+			speed = 0,
+			pitch = 2,
+			fun = 1,
+			length = 0,
 		},
 		desired_laugh = {
-			param1 = 2,
-			param2 = 0,
-			param3 = 1,
+			speed = 2,
+			pitch = 0,
+			fun = 1,
+			length = 1,
 		},
 		initial_prompt = "i want big laugh, yes, very big",
 		adjustment_prompts = {
-			param2 = {
-				less = "i hate param2!!!!",
+			pitch = {
+				less = "i hate high-pitched laughs!!!!",
 			},
 		},
 	},
 }
 
 generic_adjustment_prompts = {
-	param1 = {
-		more = "more param1!",
-		less = "less param1!",
+	speed = {
+		more = "faster!",
+		less = "slower!",
 	},
-	param2 = {
-		more = "more param2!",
-		less = "less param2!",
+	pitch = {
+		more = "higher!",
+		less = "lower!",
 	},
-	param3 = {
-		more = "more param3!",
-		less = "less param3!",
+	fun = {
+		more = "more fun!",
+		less = "more serious!",
+	},
+	length = {
+		more = "longer!",
+		less = "shorter!",
 	},
 }
 
