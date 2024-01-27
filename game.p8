@@ -1,5 +1,64 @@
 pico-8 cartridge // http://www.pico-8.com
 version 41
+__lua__
+
+function lose()
+	print("lose!!!!!!!!!!!!!!!!!!")
+	print("your score was "..score)
+end
+
+function set_face(face_idx, skin_tone)
+	print("set face to idx "..face_idx..", skin tone "..skin_tone)
+end
+
+function set_name(name)
+	print("set name to "..name)
+end
+
+function set_prompt(prompt)
+	print("set prompt to "..prompt)
+end
+
+#include people.lua
+
+function _init()
+	init_people()
+
+	print("current person is "..current_person().name)
+
+	choose({
+			param1 = 2,
+			param2 = 2,
+			param3 = 0,
+	})
+
+	choose({
+			param1 = 2,
+			param2 = 0,
+			param3 = 0,
+	})
+
+	choose({
+			param1 = 2,
+			param2 = 0,
+			param3 = 2,
+	})
+
+-- win
+	choose({
+			param1 = 2,
+			param2 = 0,
+			param3 = 1,
+	})
+
+	-- lose
+	-- choose({
+	-- 		param1 = 1,
+	-- 		param2 = 0,
+	-- 		param3 = 1,
+	-- })
+
+end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
