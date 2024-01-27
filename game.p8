@@ -41,8 +41,8 @@ laughs = {
 laugh_durations = { 2, 1.25, 0.75 }
 
 -- Speech bubble dimensions ---
-max_line_len = 30
-max_lines = 6
+max_line_len = 28
+max_lines = 4
 
 function _init()
 	pal_light_red()
@@ -264,16 +264,16 @@ function _draw()
     if saying then
         pal_light_red()
         color(5)
-        rectfill(5, 87, 122, 125)
-        rectfill(2, 90, 125, 122)
-        circfill(5, 90, 3)
-        circfill(122, 90, 3)
-        circfill(5, 122, 3)
-        circfill(122, 122, 3)
-        print("◆", 8, 84)
+        rectfill(7, 93, 120, 123)
+        rectfill(4, 96, 123, 120)
+        circfill(7, 96, 3)
+        circfill(120, 96, 3)
+        circfill(7, 120, 3)
+        circfill(120, 120, 3)
+        print("◆", 12, 90)
 
 		color(1)
-		print(sub(saying.paras[saying.para], 1, saying.char), 4, 89)
+		print(sub(saying.paras[saying.para], 1, saying.char), 8, 97)
 
 		if saying_para_done() and strobe(0.66, t_para_completed) then
 			color(5)
