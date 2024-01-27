@@ -19,6 +19,10 @@ function set_prompt(prompt)
 	print("set prompt to "..prompt)
 end
 
+function show_accepted(text)
+	print(text)
+end
+
 #include people.lua
 
 function _init()

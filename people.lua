@@ -22,6 +22,7 @@ people = {
 				less = "i hate high-pitched laughs!!!!",
 			},
 		},
+		acceptance_text = "wow so funny!!! thx bby",
 	},
 }
 
@@ -134,6 +135,8 @@ end
 function win()
 	score += 1
 	print("you did it! score is now "..score)
+	print("bob says:")
+	show_accepted(current_person().acceptance_text)
 	adjustment_number = 0
 
 	next_person()
