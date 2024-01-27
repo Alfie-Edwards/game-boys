@@ -121,15 +121,10 @@ generic_adjustment_prompts = {
 	},
 }
 
-max_health = 3
-max_adjustments = 3
 
 -- state -----------------------
-health = max_health
-score = 0
 current_person_index = 0
 adjustment_number = 0 -- 0 == 'initial prompt'
-
 people_sequencing = {}
 
 
@@ -158,6 +153,10 @@ function next_person()
 end
 
 function init_people()
+	people_sequencing = {}
+	current_person_index = 0
+	adjustment_number = 0
+
 	for i,_ in ipairs(people) do
 		add(people_sequencing, i)
 	end

@@ -5,6 +5,11 @@ __lua__
 
 #include people.lua
 
+max_health = 3
+max_adjustments = 3
+
+health = max_health
+score = 0
 lost = false
 
 function _init()
@@ -50,8 +55,17 @@ function _init()
 	-- })
 end
 
+function restart()
+	health = max_health
+	score = 0
+	lost = false
+	init_people()
+end
+
 function _update60()
-    if saying_para_done() then
+    if lost and btn(5) then
+        restart()
+    elseif saying_para_done() then
         if saying and any_input() then
             saying.para += 1
             saying.char = 1
