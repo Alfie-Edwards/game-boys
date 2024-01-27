@@ -1,10 +1,10 @@
 function draw_rotated_anticlockwise(x, y, w_tiles, h_tiles, map_x, map_y, flip_y)
 	if (flip_y == nil) flip_y = false
 
-	local w_px = w_tiles * 8
-	local h_px = h_tiles * 8
+	local w_px = w_tiles * 8 - 1
+	local h_px = h_tiles * 8 - 1
 
-	for i = 0, h_px - 1 do
+	for i = 0, h_px do
 		local map_y_idx = flip_y and (h_px - i)/8 or i/8
 		tline(
 			x + i, (y + w_px),
@@ -17,10 +17,10 @@ end
 function draw_rotated_clockwise(x, y, w_tiles, h_tiles, map_x, map_y, flip_y)
 	if (flip_y == nil) flip_y = false
 
-	local w_px = w_tiles * 8
-	local h_px = h_tiles * 8
+	local w_px = w_tiles * 8 - 1
+	local h_px = h_tiles * 8 - 1
 
-	for i = 0, h_px - 1 do
+	for i = 0, h_px do
 		local map_y_idx = flip_y and (h_px - i)/8 or i/8
 		tline(
 			x + i, y,
