@@ -5,12 +5,17 @@ __lua__
 
 #include people.lua
 
+
+-- setup -----------------------
 max_health = 3
 max_adjustments = 3
 
+
+-- state -----------------------
 health = max_health
 score = 0
 lost = false
+
 
 function _init()
 	pal_light_red()
@@ -86,7 +91,7 @@ function _update60()
 end
 
 function lnpx(text) -- length of text in pixels
-	return #text * 4
+	return print(text, 0, 999999)
 end
 
 function draw_lose_screen()
@@ -100,7 +105,7 @@ function draw_lose_screen()
 
 	local replay_start_text = "press "
 	local replay_button = "❎"
-	local replay_end_text = "  to play again"
+	local replay_end_text = " to play again"
 	local replay_text_y = 80
 	local replay_col = -5
 
@@ -193,7 +198,7 @@ function _draw()
 	for i = 0, health - 1 do
 		health_str = health_str.."♥"
 	end
-	print(health_str, 128 - (lnpx(health_str) + 14), 4)
+	print(health_str, 128 - (lnpx(health_str) + 2), 4)
 	color(7)
 
 	for i,x in ipairs(people_sequencing) do
