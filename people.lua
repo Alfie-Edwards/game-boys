@@ -286,8 +286,6 @@ end
 
 function win()
 	score += 1
-	print("you did it! score is now "..score)
-	print(current_person().name.." says:")
 	show_accepted(current_person().acceptance_text,
 	              current_person().desired_laugh)
 	next_person()
@@ -295,7 +293,6 @@ end
 
 function lose_health()
 	health -= 1
-	print("ouch! health is now "..health)
 	if health == 0 then
 		lose()
 	else
