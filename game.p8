@@ -7,20 +7,16 @@ function lose()
 	print("your score was "..score)
 end
 
-function show_face(face_idx, skin_tone)
-	print("set face to idx "..face_idx..", skin tone "..skin_tone)
-end
-
-function show_name(name)
-	print("set name to "..name)
+function show_person(face_idx, skin_tone, name)
+	print("set person to "..name..", idx "..face_idx..", skin tone "..skin_tone)
 end
 
 function show_initial_prompt(prompt, initial_laugh)
-	print("set prompt to initial: "..prompt)
+	print("initial: "..prompt)
 end
 
 function show_adjustment_prompt(prompt, chosen_laugh)
-	print("set prompt to adjustment: "..prompt)
+	print("adjustment: "..prompt)
 end
 
 function show_accepted(text, correct_laugh)
@@ -31,8 +27,6 @@ end
 
 function _init()
 	init_people()
-
-	print("current person is "..current_person().name)
 
 	choose({
 			speed = 2,
