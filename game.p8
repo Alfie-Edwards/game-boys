@@ -233,8 +233,6 @@ function _draw()
 		end
 	end
 
-	draw_base()
-
 	-- health
 	color(8)
 	local health_str = ""
