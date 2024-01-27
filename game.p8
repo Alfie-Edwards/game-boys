@@ -5,9 +5,6 @@ __lua__
 
 #include people.lua
 
-max_line_len = 30
-max_lines = 6
-
 lost = false
 
 function _init()
@@ -51,8 +48,6 @@ function _init()
 			fun = 1,
 			length = 1,
 	})
-
-    say({wrap("ADUHIUFHEI HFIJFNLKJSDNKLJFNSKLJFNFSEHFKSJENFKJSENFKJENKFNSJENF Lorem Ipsum \nis simply dummy text of the printing and typesetting industry."), wrap("rom A to Z in the code editor or the prompt. PICO- pre-defines single-character global variables with names R, O, and X  ar .")})
 end
 
 function _update60()
@@ -143,40 +138,10 @@ function _draw()
     end
 end
 
-function wrap(text)
-    local lines = {}
-    for _, para in ipairs(split(text, "\n")) do
-        add(lines, "")
-        for _, word in ipairs(split(para, " ")) do
-            if (#lines[#lines] + #word + 1) > max_line_len then
-                if #word > max_line_len then
-                    local i = max_line_len - #lines[#lines]
-                    lines[#lines] = lines[#lines]..sub(word, 1, i).." "
-                    i += 1
-                    while i <= #word do
-                        add(lines, sub(word, i, i + max_line_len - 1))
-                        i += max_line_len
-                    end
-                else
-                    add(lines, word.." ")
-                end
-            else
-                lines[#lines] = lines[#lines]..word.." "
-            end
-        end
-    end
-    local result = ""
-    for i, line in ipairs(lines) do
-        if i > 1 then
-            result = result.."\n"
-        end
-        result = result..line
-    end
-    assert(#lines <= max_lines)
-    return result
-end
-
 function say(paras)
+    if type(paras) == "string" then
+        paras = {paras}
+    end
     saying = {
         char = 1,
         para = 1,
@@ -198,8 +163,8 @@ function pal_light_red()
 end
 
 function lose()
-	printh("lose!!!!!!!!!!!!!!!!!!")
-	printh("your score was "..score)
+	say("lose!!!!!!!!!!!!!!!!!!")
+	say("your score was "..score)
 	lost = true
 end
 
@@ -208,21 +173,21 @@ function play_laugh(laugh_params)
 end
 
 function show_person(face_idx, skin_tone, name)
-	print("set person to "..name..", idx "..face_idx..", skin tone "..skin_tone)
+	say("set person to "..name..", idx "..face_idx..", skin tone "..skin_tone)
 end
 
 function show_initial_prompt(prompt, initial_laugh)
-	print("initial: "..prompt)
+	say(prompt)
 	play_laugh(initial_laugh)
 end
 
 function show_adjustment_prompt(prompt, chosen_laugh)
-	print("adjustment: "..prompt)
+	say(prompt)
 	play_laugh(chosen_laugh)
 end
 
 function show_accepted(text, correct_laugh)
-	print(text)
+	say(text)
 	play_laugh(correct_laugh)
 end
 
