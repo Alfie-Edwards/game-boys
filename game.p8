@@ -67,9 +67,6 @@ function _update60()
     end
 end
 
--- function draw_horiz_centred(text, y)
--- end
-
 function lnpx(the_text)
 	return #the_text * 4
 end
