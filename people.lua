@@ -4,7 +4,7 @@ people = {
 		name = "bob",
 		face = 0,
 		skin_tone = 1,
-		current_laugh = {
+		initial_laugh = {
 			speed = 0,
 			pitch = 2,
 			fun = 1,
@@ -22,6 +22,7 @@ people = {
 				less = "i hate high-pitched laughs!!!!",
 			},
 		},
+		acceptance_text = "wow so funny!!! thx bby",
 	},
 }
 
@@ -69,9 +70,9 @@ function current_person()
 end
 
 function set_person(person)
-	set_face(person.face, person.skin_tone)
-	set_name(person.name)
-	set_prompt(person.initial_prompt)
+	show_face(person.face, person.skin_tone)
+	show_name(person.name)
+	show_initial_prompt(person.initial_prompt, person.initial_laugh)
 end
 
 function next_person()
@@ -134,6 +135,8 @@ end
 function win()
 	score += 1
 	print("you did it! score is now "..score)
+	print("bob says:")
+	show_accepted(current_person().acceptance_text, current_person().desired_laugh)
 	adjustment_number = 0
 
 	next_person()
@@ -159,6 +162,6 @@ function choose(choice)
 	if adjustment_number > max_adjustments then
 		lose_health()
 	else
-		set_prompt(get_adjustment_prompt(choice))
+		show_adjustment_prompt(get_adjustment_prompt(choice), choice)
 	end
 end
