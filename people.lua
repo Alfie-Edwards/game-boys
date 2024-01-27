@@ -46,7 +46,6 @@ health = max_health
 score = 0
 current_person_index = -1
 adjustment_number = 0 -- 0 == 'initial prompt'
-most_recent_choice = nil
 
 people_sequencing = {}
 
