@@ -40,29 +40,66 @@ people = {
 		rejection_text = "that's too bad, i really wanted a new laugh. i hope they don't catch me",
 	},
 	{
-		name = "bob",
+		name = "priest",
 		face = 0,
 		skin_tone = 1,
 		initial_laugh = {
-			speed = 0,
-			pitch = 2,
+			speed = 2,
+			pitch = 1,
 			fun = 1,
 			length = 0,
 		},
 		desired_laugh = {
-			speed = 2,
+			speed = 0,
 			pitch = 0,
-			fun = 1,
-			length = 1,
+			fun = 0,
+			length = 0,
 		},
-		initial_prompt = "i want big laugh, yes, very big",
+		initial_prompt = {
+			"greeting my child",
+			"may the lord bless you, as he blesses us all. hahaha",
+			"i require a laugh, a power laugh, one to shake old lucifer's bones!"},
 		adjustment_prompts = {
 			pitch = {
-				less = "i hate high-pitched laughs!!!!",
+				less = "give me something deep, to shake the walls of jericho"
+			},
+			speed = {
+				less = "calm yourself child, there's no need to rush"
+			},
+			length = {
+				more = "i'd like some more laugh, really use the acoustics"
+			},
+			fun = {
+				less = "please, some gravitas. immortal souls are at stake"
 			},
 		},
-		acceptance_text = "wow so funny!!! thx bby",
+		acceptance_text = "a thousand blessings!! now i can terrify everyone at the rectory",
+		rejection_text = "god tests us all child, and we cannot always succeed",
 	},
+	-- {
+	-- 	name = "bob",
+	-- 	face = 0,
+	-- 	skin_tone = 1,
+	-- 	initial_laugh = {
+	-- 		speed = 0,
+	-- 		pitch = 2,
+	-- 		fun = 1,
+	-- 		length = 0,
+	-- 	},
+	-- 	desired_laugh = {
+	-- 		speed = 2,
+	-- 		pitch = 0,
+	-- 		fun = 1,
+	-- 		length = 1,
+	-- 	},
+	-- 	initial_prompt = "i want big laugh, yes, very big",
+	-- 	adjustment_prompts = {
+	-- 		pitch = {
+	-- 			less = "i hate high-pitched laughs!!!!",
+	-- 		},
+	-- 	},
+	-- 	acceptance_text = "wow so funny!!! thx bby",
+	-- },
 }
 
 generic_adjustment_prompts = {
