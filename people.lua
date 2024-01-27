@@ -70,8 +70,7 @@ function current_person()
 end
 
 function set_person(person)
-	show_face(person.face, person.skin_tone)
-	show_name(person.name)
+	show_person(person.face, person.skin_tone, person.name)
 	show_initial_prompt(person.initial_prompt, person.initial_laugh)
 end
 
