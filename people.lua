@@ -136,7 +136,7 @@ function win()
 	score += 1
 	print("you did it! score is now "..score)
 	print("bob says:")
-	show_accepted(current_person().acceptance_text)
+	show_accepted(current_person().acceptance_text, current_person().desired_laugh)
 	adjustment_number = 0
 
 	next_person()

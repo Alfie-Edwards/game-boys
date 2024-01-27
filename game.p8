@@ -23,7 +23,7 @@ function show_adjustment_prompt(prompt, chosen_laugh)
 	print("set prompt to adjustment: "..prompt)
 end
 
-function show_accepted(text)
+function show_accepted(text, correct_laugh)
 	print(text)
 end
 
