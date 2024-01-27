@@ -111,6 +111,17 @@ function draw_neutral_eyes(sprite_idx, head_top, head_left, head_right)
 	draw_neutral_eyes_right(sprite_idx, head_right - tiles(3) - 3, head_top + tiles(3))
 end
 
+function draw_neutral_mouth_left(sprite_idx, x, y)
+	spr(sprite_idx, x, y, 2, 3, false, false)
+end
+function draw_neutral_mouth_right(sprite_idx, x, y)
+	spr(sprite_idx, x, y, 2, 3, true, false)
+end
+function draw_neutral_mouth(sprite_idx, head_bottom, head_left, head_right)
+	draw_neutral_mouth_left(sprite_idx, head_left + tiles(2), head_bottom - tiles(4))
+	draw_neutral_mouth_right(sprite_idx, head_right - tiles(4), head_bottom - tiles(4))
+end
+
 function draw_head(name)
 	-- TODO #temp
 	name = "priest"
@@ -122,7 +133,7 @@ function draw_head(name)
 
 	local head_left = 64 - tiles(4)
 	local head_right = (64 - 1) + tiles(4)
-	local head_top = 1
+	local head_top = 2
 	local head_bottom = head_top + tiles(10)
 
 	-- base
@@ -138,5 +149,6 @@ function draw_head(name)
 	draw_neutral_eyes(sprite_info[name].neutral_eyes_sprite,
 	                  head_top, head_left, head_right)
 
-	-- 
+	draw_neutral_mouth(sprite_info[name].neutral_mouth_sprite,
+	                   head_bottom, head_left, head_right)
 end
