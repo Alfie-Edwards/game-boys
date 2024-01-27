@@ -2,6 +2,7 @@ pico-8 cartridge // http://www.pico-8.com
 version 41
 
 __lua__
+
 #include people.lua
 
 max_line_len = 30
@@ -119,20 +120,27 @@ function lose()
 	print("your score was "..score)
 end
 
+function play_laugh(laugh_params)
+	--
+end
+
 function show_person(face_idx, skin_tone, name)
 	print("set person to "..name..", idx "..face_idx..", skin tone "..skin_tone)
 end
 
 function show_initial_prompt(prompt, initial_laugh)
 	print("initial: "..prompt)
+	play_laugh(initial_laugh)
 end
 
 function show_adjustment_prompt(prompt, chosen_laugh)
 	print("adjustment: "..prompt)
+	play_laugh(chosen_laugh)
 end
 
 function show_accepted(text, correct_laugh)
 	print(text)
+	play_laugh(correct_laugh)
 end
 
 __gfx__
