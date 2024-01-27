@@ -203,6 +203,7 @@ generic_adjustment_prompts = {
 current_person_index = 0
 adjustment_number = 0 -- 0 == 'initial prompt'
 people_sequencing = {}
+ready_for_next_person = false
 
 
 -- functions -------------------
@@ -233,6 +234,7 @@ function init_people()
 	people_sequencing = {}
 	current_person_index = 0
 	adjustment_number = 0
+	ready_for_next_person = false
 
 	for i,_ in ipairs(people) do
 		add(people_sequencing, i)
@@ -284,31 +286,31 @@ function get_adjustment_prompt(choice)
 	return generic_adjustment_prompts[param][direction]
 end
 
-function win()
+function accept()
 	score += 1
 	show_accepted(current_person().acceptance_text,
 	              current_person().desired_laugh)
-	next_person()
+	ready_for_next_person = true
 end
 
-function lose_health()
+function reject()
 	health -= 1
 	if health == 0 then
 		lose()
-	else
-		next_person()
 	end
+	ready_for_next_person = true
 end
 
 function choose(choice)
 	if biggest_error(score_choice(choice)).abs_amount == 0 then
-		win()
+		accept()
 		return
 	end
 
 	adjustment_number += 1
 	if adjustment_number > max_adjustments then
-		lose_health()
+		show_rejected(current_person().rejection_text)
+		reject()
 	else
 		show_adjustment_prompt(get_adjustment_prompt(choice), choice)
 	end

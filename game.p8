@@ -69,6 +69,9 @@ function _update60()
                 t_para_completed = t()
             end
         end
+    elseif ready_for_next_person then
+        next_person()
+        ready_for_next_person = false
     else
         -- Grab and ungrab slider handles.
         if mouse.pressed then
@@ -317,6 +320,10 @@ end
 function show_accepted(text, correct_laugh)
 	say(text)
 	play_laugh(correct_laugh)
+end
+
+function show_rejected(text)
+	say(text)
 end
 
 function strobe(period, offset)
