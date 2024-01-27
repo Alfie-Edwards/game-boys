@@ -1,5 +1,6 @@
 pico-8 cartridge // http://www.pico-8.com
 version 41
+<<<<<<< HEAD
 
 __lua__
 max_line_len = 30
@@ -7,6 +8,48 @@ max_lines = 6
 
 function _init()
     pal_light_red()
+
+	init_people()
+
+	print("current person is "..current_person().name)
+
+	choose({
+			speed = 2,
+			pitch = 2,
+			fun = 0,
+			length = 0,
+	})
+
+	choose({
+			speed = 2,
+			pitch = 0,
+			fun = 0,
+			length = 1,
+	})
+
+	choose({
+			speed = 2,
+			pitch = 0,
+			fun = 2,
+			length = 1,
+	})
+
+	-- win
+	choose({
+			speed = 2,
+			pitch = 0,
+			fun = 1,
+			length = 1,
+	})
+
+	-- -- lose
+	-- choose({
+	-- 		speed = 1,
+	-- 		pitch = 0,
+	-- 		fun = 1,
+	-- 		length = 1,
+	-- })
+
     saying = wrap("ADUHIUFHEI HFIJFNLKJSDNKLJFNSKLJFNFSEHFKSJENFKJSENFKJENKFNSJENF Lorem Ipsum \nis simply dummy text of the printing and typesetting industry.")
 end
 
@@ -32,9 +75,9 @@ end
 
 function wrap(text)
     local lines = {}
-    for i, para in ipairs(split(text, "\n")) do
+    for _, para in ipairs(split(text, "\n")) do
         add(lines, "")
-        for i, word in ipairs(split(para, " ")) do
+        for _, word in ipairs(split(para, " ")) do
             if (#lines[#lines] + #word + 1) > max_line_len then
                 if #word > max_line_len then
                     local i = max_line_len - #lines[#lines]
@@ -71,6 +114,25 @@ function pal_light_red()
     pal(4, 14)
     pal(5, 7)
 end
+
+function lose()
+	print("lose!!!!!!!!!!!!!!!!!!")
+	print("your score was "..score)
+end
+
+function set_face(face_idx, skin_tone)
+	print("set face to idx "..face_idx..", skin tone "..skin_tone)
+end
+
+function set_name(name)
+	print("set name to "..name)
+end
+
+function set_prompt(prompt)
+	print("set prompt to "..prompt)
+end
+
+#include people.lua
 
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
