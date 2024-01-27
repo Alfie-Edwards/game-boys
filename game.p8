@@ -5,11 +5,12 @@ __lua__
 #include face.lua
 #include people.lua
 
+-- set mem flags ---------------
+poke(0x5F2D, 1)
 
 -- setup -----------------------
 max_health = 3
 max_adjustments = 3
-
 
 -- state -----------------------
 health = max_health
@@ -44,11 +45,12 @@ max_line_len = 30
 max_lines = 6
 
 function _init()
-	poke(0x5F2D, 1)
 	pal_light_red()
 	update_mouse()
 
 	init_people()
+
+    music(0, nil, 0)
 
     timers = {}
     laughing = false
