@@ -1,3 +1,9 @@
+sprite_info = {
+	priest = {
+		collar_sprite = 101,
+	}
+}
+
 function draw_rotated_anticlockwise(x, y, w_tiles, h_tiles, map_x, map_y, flip_y)
 	if (flip_y == nil) flip_y = false
 
@@ -77,19 +83,41 @@ function draw_ear_right(x, y)
 	                           10, 0, true)
 end
 
+function draw_collar_left(x, y)
+	spr(101, x, y, 5, 2, false, false)
+end
+
+function draw_collar_right(x, y)
+	spr(101, x, y, 5, 2, true, false)
+end
+
 function tiles(x)
 	return x * 8
 end
 
-function draw_base()
+function draw_collar(sprite_idx, head_bottom)
+	draw_collar_left(64 - tiles(5), head_bottom - tiles(1))
+	draw_collar_right(64 - 1,       head_bottom - tiles(1))
+end
+
+function draw_head(name)
+	-- TODO #temp
+	name = "priest"
+
 	pal()
-	-- palt(13, true)
+	palt(0, false)
+	palt(13, true)
 
 	local head_left = 64 - tiles(4)
 	local head_right = (64 - 1) + tiles(4)
-	draw_base_left(head_left, 10)
-	draw_base_right(head_right - tiles(4), 10)
+	local head_top = 1
+	local head_bottom = head_top + tiles(10)
 
-	draw_ear_left(head_left - tiles(1) + 1, 35)
-	draw_ear_right(head_right - 1, 35)
+	draw_base_left(head_left, head_top)
+	draw_base_right(head_right - tiles(4), head_top)
+
+	draw_ear_left(head_left - tiles(1) + 1, head_top + tiles(3))
+	draw_ear_right(head_right - 1,          head_top + tiles(3))
+
+	draw_collar(sprite_info[name].collar_sprite, head_bottom)
 end
