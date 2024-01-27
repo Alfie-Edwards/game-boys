@@ -18,46 +18,30 @@ lost = false
 
 
 function _init()
+
+    poke(0x5F2D, 1)
 	pal_light_red()
+    update_mouse()
 
 	init_people()
 
-	-- choose({
-	-- 		speed = 2,
-	-- 		pitch = 2,
-	-- 		fun = 0,
-	-- 		length = 0,
-	-- })
+    sliders = {
+        length = { name_x = 8, y = 100, value = 1, grabbed = false },
+        speed = { name_x = 12, y = 107, value = 1, grabbed = false },
+        pitch = { name_x = 12, y = 114, value = 1, grabbed = false },
+        fun = { name_x = 20, y = 121, value = 1, grabbed = false },
+    }
 
-	-- choose({
-	-- 		speed = 2,
-	-- 		pitch = 0,
-	-- 		fun = 0,
-	-- 		length = 1,
-	-- })
-
-	-- choose({
-	-- 		speed = 2,
-	-- 		pitch = 0,
-	-- 		fun = 2,
-	-- 		length = 1,
-	-- })
-
-	-- -- win
-	-- choose({
-	-- 		speed = 2,
-	-- 		pitch = 0,
-	-- 		fun = 1,
-	-- 		length = 1,
-	-- })
-
-	-- -- lose
-	-- choose({
-	-- 		speed = 1,
-	-- 		pitch = 0,
-	-- 		fun = 1,
-	-- 		length = 1,
-	-- })
+    buttons = {
+        submit = { x = 110, y = 113, r = 7, on_click = function()
+            choose({
+                speed = sliders.speed.value - 1,
+                pitch = sliders.pitch.value - 1,
+                fun = sliders.fun.value - 1,
+                length = sliders.length.value - 1, })
+            end
+        },
+    }
 end
 
 function restart()
@@ -68,24 +52,62 @@ function restart()
 end
 
 function _update60()
-    if lost and btn(5) then
-        restart()
-    elseif saying_para_done() then
-        if saying and any_input() then
-            saying.para += 1
-            saying.char = 1
-            if saying.para > #saying.paras then
-                saying = nil
-                choose({speed = rnd(3),
-                        pitch = rnd(3),
-                        fun = rnd(3),
-                        length = rnd(3)})
+    update_mouse()
+
+    if saying then
+        if saying_para_done() then
+            if any_input() then
+                saying.para += 1
+                saying.char = 1
+                if saying.para > #saying.paras then
+                    saying = nil
+                end
+            end
+        else
+            saying.char = saying.char + 1
+            if saying.char == #saying.paras then
+                t_para_completed = t()
             end
         end
     else
-        saying.char = saying.char + 1
-        if saying.char == #saying.paras then
-            t_para_completed = t()
+        -- Grab and ungrab slider handles.
+        if mouse.pressed then
+            for _, slider in pairs(sliders) do
+                local handle = slider_handle_pos(slider)
+                if sqdst(mouse.x, mouse.y, handle.x, handle.y) <= 8 then
+                    slider.grabbed = true
+                end
+            end
+        elseif mouse.released then
+            for _, slider in pairs(sliders) do
+                slider.grabbed = false
+            end
+        end
+
+        -- Move grabbed slider handles to the nearest point to the mouse.
+        for _, slider in pairs(sliders) do
+            if slider.grabbed then
+                local nearest = {}
+                local nearest_dist = 32000
+                for value=1, 3 do
+                    local handle = slider_handle_pos(slider, value)
+                    local dst = sqdst(mouse.x, mouse.y, handle.x, handle.y)
+                    if dst < nearest_dist then
+                        nearest_dist = dst
+                        nearest = value
+                    end
+                end
+                slider.value = nearest
+            end
+        end
+
+        -- Press buttons.
+        if mouse.pressed then
+            for _, button in pairs(buttons) do
+                if sqdst(mouse.x, mouse.y, button.x, button.y) <= (button.r * button.r) + 2 then
+                    button.on_click()
+                end
+            end
         end
     end
 end
@@ -170,8 +192,27 @@ function _draw()
 		return
 	end
 
+    -- Head
+
+    -- Laugh maker
+    pal_dark_blue()
+    color(1)
+    rectfill(0, 98, 127, 127)
+    for name, slider in pairs(sliders) do
+        color(5)
+        print(name, slider.name_x, slider.y)
+        color(4)
+        line(40, slider.y + 2, 80, slider.y + 2)
+        color(5)
+        local h = slider_handle_pos(slider)
+        rectfill(h.x - 1, h.y - 1, h.x + 1, h.y + 1)
+    end
+    color(5)
+    circfill(buttons.submit.x, buttons.submit.y, buttons.submit.r)
+
     -- Speech bubble
     if saying then
+        pal_light_red()
         color(5)
         rectfill(5, 87, 122, 125)
         rectfill(2, 90, 125, 122)
@@ -206,6 +247,25 @@ function _draw()
 		print(s, (i-1) * lnpx(s), 0)
 	end
 	print(current_person_index, 0, 8)
+
+    -- Cursor
+    color(0)
+    circfill(mouse.x, mouse.y, 1)
+end
+
+function slider_handle_pos(slider, value)
+    value = value or slider.value
+    if value == 1 then
+        return { x = 42, y = slider.y + 2}
+    elseif value == 2 then
+        return { x = 60, y = slider.y + 2}
+    else
+        return { x = 78, y = slider.y + 2}
+    end
+end
+
+function sqdst(x1, y1, x2, y2)
+    return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)
 end
 
 function say(paras)
@@ -229,12 +289,11 @@ function saying_para_done()
 end
 
 function pal_light_red()
-	pal(0, 0)
-	pal(1, 2)
-	pal(2, -8)
-	pal(3, 8)
-	pal(4, 14)
-	pal(5, 7)
+    pal({[0] = 0, 2, -8, 8, 14, 7})
+end
+
+function pal_dark_blue()
+    pal({[0] = 0, -15, 1, -4, 12, 7})
 end
 
 function lose()
@@ -267,11 +326,23 @@ function show_accepted(text, correct_laugh)
 end
 
 function strobe(period, offset)
-	return (t() - (offset or 0)) % (period * 2) < period
+    return (t() - (offset or 0) + period) % (period * 2) < period
 end
 
 function any_input()
-	return btn(4) or btn(5)
+    return btn(4) or btn(5) or mouse.pressed
+end
+
+function update_mouse()
+    local down_last = mouse ~= nil and mouse.down
+    local down = (stat(34) & 1) != 0
+    mouse = {
+        x = stat(32) - 1,
+        y = stat(33) - 1,
+        pressed = (down and not down_last),
+        released = (down_last and not down),
+        down = down,
+    }
 end
 
 __gfx__
