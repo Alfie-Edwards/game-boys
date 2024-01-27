@@ -48,8 +48,6 @@ function _init()
 	pal_light_red()
 	update_mouse()
 
-	init_people()
-
     music(0, nil, 0)
 
     timers = {}
