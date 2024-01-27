@@ -154,6 +154,7 @@ function next_person()
 	current_person_index = ((current_person_index + 1) % #people) + 1
 	if (current_person_index == 1) shuffle_people_sequence()
 	set_person(current_person())
+	adjustment_number = 0
 end
 
 function init_people()
@@ -213,8 +214,6 @@ function win()
 	print(current_person().name.." says:")
 	show_accepted(current_person().acceptance_text,
 	              current_person().desired_laugh)
-	adjustment_number = 0
-
 	next_person()
 end
 

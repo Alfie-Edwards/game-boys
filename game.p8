@@ -12,26 +12,26 @@ function _init()
 
 	init_people()
 
-	choose({
-			speed = 2,
-			pitch = 2,
-			fun = 0,
-			length = 0,
-	})
+	-- choose({
+	-- 		speed = 2,
+	-- 		pitch = 2,
+	-- 		fun = 0,
+	-- 		length = 0,
+	-- })
 
-	choose({
-			speed = 2,
-			pitch = 0,
-			fun = 0,
-			length = 1,
-	})
+	-- choose({
+	-- 		speed = 2,
+	-- 		pitch = 0,
+	-- 		fun = 0,
+	-- 		length = 1,
+	-- })
 
-	choose({
-			speed = 2,
-			pitch = 0,
-			fun = 2,
-			length = 1,
-	})
+	-- choose({
+	-- 		speed = 2,
+	-- 		pitch = 0,
+	-- 		fun = 2,
+	-- 		length = 1,
+	-- })
 
 	-- -- win
 	-- choose({
@@ -41,13 +41,13 @@ function _init()
 	-- 		length = 1,
 	-- })
 
-	-- lose
-	choose({
-			speed = 1,
-			pitch = 0,
-			fun = 1,
-			length = 1,
-	})
+	-- -- lose
+	-- choose({
+	-- 		speed = 1,
+	-- 		pitch = 0,
+	-- 		fun = 1,
+	-- 		length = 1,
+	-- })
 end
 
 function _update60()
@@ -57,6 +57,10 @@ function _update60()
             saying.char = 1
             if saying.para > #saying.paras then
                 saying = nil
+                choose({speed = rnd(3),
+                        pitch = rnd(3),
+                        fun = rnd(3),
+                        length = rnd(3)})
             end
         end
     else
@@ -172,7 +176,7 @@ function _draw()
 	-- health
 	color(8)
 	local health_str = ""
-	for i = 0, health, 1 do
+	for i = 0, health - 1 do
 		health_str = health_str.."♥"
 	end
 	print(health_str, 128 - (lnpx(health_str) + 14), 4)
