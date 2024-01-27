@@ -127,7 +127,7 @@ max_adjustments = 3
 -- state -----------------------
 health = max_health
 score = 0
-current_person_index = -1
+current_person_index = 0
 adjustment_number = 0 -- 0 == 'initial prompt'
 
 people_sequencing = {}
@@ -142,7 +142,7 @@ function shuffle_people_sequence()
 end
 
 function current_person()
-	return people[current_person_index]
+	return people[people_sequencing[current_person_index]]
 end
 
 function set_person(person)
@@ -151,7 +151,7 @@ function set_person(person)
 end
 
 function next_person()
-	current_person_index = ((current_person_index + 1) % #people) + 1
+	current_person_index = (current_person_index % #people) + 1
 	if (current_person_index == 1) shuffle_people_sequence()
 	set_person(current_person())
 	adjustment_number = 0

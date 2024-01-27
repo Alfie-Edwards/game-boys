@@ -181,6 +181,12 @@ function _draw()
 	end
 	print(health_str, 128 - (lnpx(health_str) + 14), 4)
 	color(7)
+
+	for i,x in ipairs(people_sequencing) do
+		local s = x..", "
+		print(s, (i-1) * lnpx(s), 0)
+	end
+	print(current_person_index, 0, 8)
 end
 
 function say(paras)
