@@ -54,6 +54,7 @@ function _init()
 
     timers = {}
     laughing = false
+    music(0, 1000, 1)
 
     sliders = {
         length = { name_x = 8, y = 100, value = 1, grabbed = false },
@@ -72,6 +73,7 @@ function _init()
             end
         },
     }
+	init_people()
 end
 
 function restart()
@@ -346,6 +348,7 @@ function play_laugh(laugh_params)
     local sound = laughs[laugh_params.speed + 1][laugh_params.pitch + 1][laugh_params.fun + 1]
     sfx(sound)
     local action = {}
+    local length = laugh_durations[laugh_params.speed + 1]
 
     -- If length > 1, queue up laugh to replay again after it's over (with length - 1).
     if laugh_params.length > 0 then
@@ -357,15 +360,19 @@ function play_laugh(laugh_params)
                 length = laugh_params.length - 1,
             })
         end
+        length *= 0.75
     else
         -- If length = 1, queue up setting laughing = false after it's over.
         action = function()
+            if laughing then
+                music(1, 1000, 0)
+            end
             laughing = false
         end
     end
     add(timers, {
         t0 = t(),
-        length = laugh_durations[laugh_params.speed + 1] * 0.75,
+        length = length,
         action = action,
     })
 
