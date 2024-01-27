@@ -8,8 +8,10 @@ __lua__
 max_line_len = 30
 max_lines = 6
 
+lost = false
+
 function _init()
-    pal_light_red()
+	pal_light_red()
 
 	init_people()
 
@@ -34,23 +36,23 @@ function _init()
 			length = 1,
 	})
 
-	-- win
-	choose({
-			speed = 2,
-			pitch = 0,
-			fun = 1,
-			length = 1,
-	})
-
-	-- -- lose
+	-- -- win
 	-- choose({
-	-- 		speed = 1,
+	-- 		speed = 2,
 	-- 		pitch = 0,
 	-- 		fun = 1,
 	-- 		length = 1,
 	-- })
 
-    saying = wrap("ADUHIUFHEI HFIJFNLKJSDNKLJFNSKLJFNFSEHFKSJENFKJSENFKJENKFNSJENF Lorem Ipsum \nis simply dummy text of the printing and typesetting industry.")
+	-- lose
+	choose({
+			speed = 1,
+			pitch = 0,
+			fun = 1,
+			length = 1,
+	})
+
+	saying = wrap("ADUHIUFHEI HFIJFNLKJSDNKLJFNSKLJFNFSEHFKSJENFKJSENFKJENKFNSJENF Lorem Ipsum \nis simply dummy text of the printing and typesetting industry.")
 end
 
 function _update60()
@@ -58,8 +60,53 @@ function _update60()
     end
 end
 
+-- function draw_horiz_centred(text, y)
+-- end
+
+function lnpx(the_text)
+	return #the_text * 4
+end
+
+function draw_lose_screen()
+	local lost_text = "you lost!"
+	local lost_text_y = 40
+
+	local score_start_text = "you made "
+	local score_end_text = " laughs"
+	local score_text_y = 60
+	local score_col = 10
+
+	local replay_start_text = "press "
+	local replay_button = "❎"
+	local replay_end_text = "  to play again"
+	local replay_text_y = 80
+	local replay_col = -5
+
+	color(7)
+	print(lost_text, 64 - lnpx(lost_text) / 2, lost_text_y)
+
+	local score_text_length = lnpx(score_start_text..score..score_end_text)
+	print(score_start_text, 64 - score_text_length / 2, score_text_y)
+	color(score_col)
+	print(score, (64 - score_text_length / 2) + lnpx(score_start_text), score_text_y)
+	color(7)
+	print(score_end_text, (64 - score_text_length / 2) + lnpx(score_start_text..score), score_text_y)
+
+	local replay_text_length = lnpx(replay_start_text..replay_button..replay_end_text)
+	print(replay_start_text, 64 - replay_text_length / 2, replay_text_y)
+	color(replay_col)
+	print(replay_button, (64 - replay_text_length / 2) + lnpx(replay_start_text), replay_text_y)
+	color(7)
+	print(replay_end_text, (64 - replay_text_length / 2) + lnpx(replay_start_text..replay_button), replay_text_y)
+end
+
 function _draw()
     cls(4)
+
+	if lost then
+		draw_lose_screen()
+		return
+	end
 
     color(5)
     rectfill(5, 87, 122, 125)
@@ -116,8 +163,9 @@ function pal_light_red()
 end
 
 function lose()
-	print("lose!!!!!!!!!!!!!!!!!!")
-	print("your score was "..score)
+	printh("lose!!!!!!!!!!!!!!!!!!")
+	printh("your score was "..score)
+	lost = true
 end
 
 function play_laugh(laugh_params)
