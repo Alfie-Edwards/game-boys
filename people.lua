@@ -4,7 +4,7 @@ people = {
 		name = "bob",
 		face = 0,
 		skin_tone = 1,
-		current_laugh = {
+		initial_laugh = {
 			speed = 0,
 			pitch = 2,
 			fun = 1,
@@ -72,7 +72,7 @@ end
 function set_person(person)
 	show_face(person.face, person.skin_tone)
 	show_name(person.name)
-	show_prompt(person.initial_prompt)
+	show_initial_prompt(person.initial_prompt, person.initial_laugh)
 end
 
 function next_person()
@@ -162,6 +162,6 @@ function choose(choice)
 	if adjustment_number > max_adjustments then
 		lose_health()
 	else
-		show_prompt(get_adjustment_prompt(choice))
+		show_adjustment_prompt(get_adjustment_prompt(choice), choice)
 	end
 end

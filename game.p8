@@ -15,8 +15,12 @@ function show_name(name)
 	print("set name to "..name)
 end
 
-function show_prompt(prompt)
-	print("set prompt to "..prompt)
+function show_initial_prompt(prompt, initial_laugh)
+	print("set prompt to initial: "..prompt)
+end
+
+function show_adjustment_prompt(prompt, chosen_laugh)
+	print("set prompt to adjustment: "..prompt)
 end
 
 function show_accepted(text)
