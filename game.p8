@@ -44,7 +44,7 @@ function _init()
 			param3 = 2,
 	})
 
--- win
+	-- win
 	choose({
 			param1 = 2,
 			param2 = 0,
