@@ -50,8 +50,8 @@ sprites = {
 			end,
 		eyes =
 			function(x_left, x_right, y)
-				spr(206, x_left,  y, 2, 3, false, false)
-				spr(206, x_right, y, 2, 3, true, false)
+				spr(206, x_left,  y, 2, 3, true, false)
+				spr(206, x_right, y, 2, 3, false, false)
 			end,
 		mouth =
 			function(x, y)
@@ -336,9 +336,11 @@ function draw_big_beardy_man(emotion, head_left, head_right, head_top, head_bott
 			palt(13, true)
 			palt(0, true)
 			palt(-16, true)
+
+			palt(1, true)
 		else
 			palt(13, true)
-			palt(1, true)
+			-- palt(1, true)
 			palt(2, true)
 			palt(3, true)
 		end
@@ -359,11 +361,14 @@ function draw_big_beardy_man(emotion, head_left, head_right, head_top, head_bott
 	if emotion ~= "neutral" then
 		palt(5, true)
 		palt(6, true)
-		palt(10, true)
+		-- palt(10, true)
 		if emotion == "angry" then
 			palt(0, true)
 			palt(14, true)
 			palt(-16, true)
+
+			palt(1, true)
+			palt(10, true)
 		else
 			palt(3, true)
 			palt(4, true)
