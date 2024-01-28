@@ -316,7 +316,6 @@ function draw_head(name, emotion)
 	name = "clown"
 
 	-- setup
-	pal()
 	palt(0, false)
 	palt(13, true)
 
