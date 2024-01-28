@@ -169,7 +169,7 @@ function _update60()
             for _, button in pairs(buttons) do
                 if mouse_is_over_button(button) then
                     button.on_click()
-                    sfx(61)
+                    -- sfx(61)
                 end
             end
         end
