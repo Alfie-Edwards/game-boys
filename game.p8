@@ -17,6 +17,9 @@ health = max_health
 score = 0
 lost = false
 
+laughing = false
+current_laugh = nil
+
 -- laughs ----------------------
 -- speed, pitch, fun
 laughs = {
@@ -37,10 +40,10 @@ laughs = {
     },
 }
 
--- laugh durations ------------
+-- laugh durations -------------
 laugh_durations = { 2, 1.25, 0.75 }
 
--- Speech bubble dimensions ---
+-- Speech bubble dimensions ----
 max_line_len = 28
 max_lines = 4
 
@@ -49,6 +52,7 @@ function _init()
 	update_mouse()
     timers = {}
     laughing = false
+    current_laugh = nil
 
     sliders = {
         length = { name_x = 8, y = 100, value = 1, grabbed = false },
@@ -237,7 +241,7 @@ function _draw()
 	end
 
 	-- Head
-	draw_head(current_person().name)
+	draw_head(current_person().name, current_emotion())
 
     -- Laugh maker
     pal_dark_blue()
@@ -361,12 +365,12 @@ function pal_dark_blue()
 end
 
 function lose()
-	say("lose!!!!!!!!!!!!!!!!!!")
-	say("your score was "..score)
 	lost = true
 end
 
 function play_laugh(laugh_params)
+    if (laughing == false) current_laugh = laugh_params
+
     laughing = true
     local sound = laughs[laugh_params.speed + 1][laugh_params.pitch + 1][laugh_params.fun + 1]
     sfx(sound)
@@ -391,6 +395,7 @@ function play_laugh(laugh_params)
                 music(1, 1000, 0)
             end
             laughing = false
+            current_laugh = nil
         end
     end
     add(timers, {

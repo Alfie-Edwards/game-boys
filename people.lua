@@ -214,6 +214,13 @@ function shuffle_people_sequence()
 	end
 end
 
+function current_emotion()
+	if laughing then
+		return "laughing"
+	end
+	return "neutral"
+end
+
 function current_person()
 	return people[people_sequencing[current_person_index]]
 end

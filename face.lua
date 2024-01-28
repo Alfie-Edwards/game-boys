@@ -171,7 +171,9 @@ function draw_big_beardy_man(head_left, head_right, head_top, head_bottom)
 	-- draw_moustache_right(64 - 1,        head_bottom - tiles(4))
 end
 
-function draw_head(name)
+function draw_head(name, emotion)
+	if (emotion == nil) emotion = "neutral"
+
 	-- TODO #temp
 	name = "big beardy man"
 	-- name = "priest"
@@ -181,9 +183,15 @@ function draw_head(name)
 	palt(0, false)
 	palt(13, true)
 
+	local laughing_y_offset = 0
+	if emotion == "laughing" and current_laugh ~= nil then
+		local laugh_speed = 3 * (current_laugh.speed + 1)
+		laughing_y_offset = flr((t() * laugh_speed) % 2)
+	end
+
 	local head_left = 64 - tiles(4)
 	local head_right = (64 - 1) + tiles(4)
-	local head_top = 10
+	local head_top = 11 - laughing_y_offset
 	local head_bottom = head_top + tiles(10)
 
 	-- base
