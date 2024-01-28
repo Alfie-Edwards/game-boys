@@ -5,7 +5,9 @@ sprite_info = {
 		beard = 139,
 		collar = 122,
 		hair = 74,
-		moustache = 71,
+		hair_edge = 71,
+		eyes = 206,
+		mouth = 93,
 	},
 	priest = {
 		collar = 101,
@@ -103,7 +105,7 @@ function draw_neutral_eyes(head_top, head_left, head_right)
 		spr(sprite_info.neutral_eyes, x, y, 3, 3, false, false)
 	end
 
-	draw_neutral_eyes_left(head_left + 3,             head_top + tiles(3))
+	draw_neutral_eyes_left(head_left + 3,              head_top + tiles(3))
 	draw_neutral_eyes_right(head_right - tiles(3) - 3, head_top + tiles(3))
 end
 
@@ -115,11 +117,11 @@ function draw_neutral_mouth(head_bottom, head_left, head_right)
 		spr(sprite_info.neutral_mouth, x, y, 2, 3, true, false)
 	end
 
-	draw_neutral_mouth_left(head_left + tiles(2),  head_bottom - tiles(4))
+	draw_neutral_mouth_left(head_left + tiles(2),   head_bottom - tiles(4))
 	draw_neutral_mouth_right(head_right - tiles(4), head_bottom - tiles(4))
 end
 
-function draw_priest_features(head_left, head_right, head_top, head_bottom)
+function draw_priest(emotion, head_left, head_right, head_top, head_bottom)
 	function draw_collar_left(x, y)
 		spr(sprite_info.priest.collar, x, y, 5, 2, false, false)
 	end
@@ -127,11 +129,20 @@ function draw_priest_features(head_left, head_right, head_top, head_bottom)
 		spr(sprite_info.priest.collar, x, y, 5, 2, true, false)
 	end
 
-	draw_collar_left(64 - tiles(5), head_bottom - tiles(1))
+	-- base layer
+	draw_base_left(head_left,              head_top)
+	draw_base_right(head_right - tiles(4), head_top)
+	draw_ear_left(head_left - tiles(1) + 1, head_top + tiles(3))
+	draw_ear_right(head_right - 1,          head_top + tiles(3))
+	draw_neutral_eyes(head_top, head_left, head_right)
+	draw_neutral_mouth(head_bottom, head_left, head_right)
+
+	-- features
+	draw_collar_left(64 - tiles(5),  head_bottom - tiles(1))
 	draw_collar_right(64 - 1,        head_bottom - tiles(1))
 end
 
-function draw_big_beardy_man_features(head_left, head_right, head_top, head_bottom)
+function draw_big_beardy_man(emotion, head_left, head_right, head_top, head_bottom)
 	function draw_collar_left(x, y)
 		spr(sprite_info["big beardy man"].collar, x, y, 5, 1, false, false)
 	end
@@ -150,28 +161,56 @@ function draw_big_beardy_man_features(head_left, head_right, head_top, head_bott
 	function draw_hair_right(x, y)
 		spr(sprite_info["big beardy man"].hair, x, y, 3, 3, true, false)
 	end
-	function draw_moustache_left(x, y)
-		spr(sprite_info["big beardy man"].moustache, x, y, 3, 2, true, false)
-		-- draw_rotated_anticlockwise(x, y, 3, 2, 10, 1)
+	function draw_hair_side_left(x, y)
+		draw_rotated_anticlockwise(x, y, 3, 2, 10, 1)
 	end
-	function draw_moustache_right(x, y)
-		spr(sprite_info["big beardy man"].moustache, x, y, 3, 2, false, false)
-		-- draw_rotated_anticlockwise(x, y, 3, 2, 10, 1, true)
+	function draw_hair_side_right(x, y)
+		draw_rotated_anticlockwise(x, y, 3, 2, 10, 1, true)
+	end
+	function draw_big_beardy_man_eyes_left(x, y)
+		spr(sprite_info["big beardy man"].eyes, x, y, 2, 3, true, false)
+	end
+	function draw_big_beardy_man_eyes_right(x, y)
+		spr(sprite_info["big beardy man"].eyes, x, y, 2, 3, false, false)
+	end
+	function draw_big_beardy_man_eyes_mouth(x, y)
+		spr(sprite_info["big beardy man"].mouth, x, y, 3, 2, false, false)
 	end
 
-	draw_collar_left(64 - tiles(5) + 5, head_bottom)
-	draw_collar_right(64 - 1 - 4,       head_bottom)
+	-- palette
+	-- pal(8, 1)
+	-- pal(14, -4)
+	-- pal(10, -7)
+
+	-- base layer
+	draw_base_left(head_left,              head_top)
+	draw_base_right(head_right - tiles(4), head_top)
+	draw_ear_left(head_left - tiles(1) + 1, head_top + tiles(3))
+	draw_ear_right(head_right - 1,          head_top + tiles(3))
+
+	if emotion == "neutral" then
+		draw_neutral_eyes(head_top, head_left, head_right)
+	else
+		draw_big_beardy_man_eyes_left(head_left + tiles(2) - 5,               head_top + tiles(3))
+		draw_big_beardy_man_eyes_right(head_right - tiles(3) - 3, head_top + tiles(3))
+	end
+
+	-- features
+	draw_collar_left(64 - tiles(5), head_bottom)
+	draw_collar_right(64 - 1,       head_bottom)
 	draw_beard_left(64 - tiles(5),      head_bottom - tiles(4))
 	draw_beard_right(64 - 1,            head_bottom - tiles(4))
-	draw_hair_left(64 - tiles(3),       head_top - tiles(1))
-	draw_hair_right(64 - 1,             head_top - tiles(1))
-	draw_moustache_left(64 - tiles(3),  head_bottom - tiles(4) - 4)
-	draw_moustache_right(64 - 1,        head_bottom - tiles(4) - 4)
-	-- draw_moustache_left(64 - tiles(2),  head_bottom - tiles(4))
-	-- draw_moustache_right(64 - 1,        head_bottom - tiles(4))
+	draw_hair_left(64 - tiles(3),       head_top - 1)
+	draw_hair_right(64 - 1,             head_top - 1)
+	draw_hair_side_left(head_left - tiles(1) + 1,   head_top + tiles(1))
+	draw_hair_side_right(head_right - tiles(1) - 1, head_top + tiles(1))
+
+	if emotion ~= "neutral" then
+		draw_big_beardy_man_eyes_mouth(64 - tiles(1.5), head_bottom - tiles(3))
+	end
 end
 
-function draw_diver(head_left, head_right, head_top, head_bottom)
+function draw_diver(emotion, head_left, head_right, head_top, head_bottom)
 	function draw_helmet_left(x, y)
 		draw_rotated_anticlockwise(x, y,
 		                           11, 4,
@@ -203,9 +242,9 @@ function draw_head(name, emotion)
 	if (emotion == nil) emotion = "neutral"
 
 	-- TODO #temp
-	-- name = "big beardy man"
+	name = "big beardy man"
 	-- name = "priest"
-    name = "diver"
+    -- name = "diver"
 
 	-- setup
 	pal()
@@ -226,22 +265,10 @@ function draw_head(name, emotion)
 
 	-- specific features
 	if name == "priest" then
-		draw_base_left(head_left,              head_top)
-		draw_base_right(head_right - tiles(4), head_top)
-		draw_ear_left(head_left - tiles(1) + 1, head_top + tiles(3))
-		draw_ear_right(head_right - 1,          head_top + tiles(3))
-		draw_neutral_eyes(head_top, head_left, head_right)
-		draw_neutral_mouth(head_bottom, head_left, head_right)
-		draw_priest_features(head_left, head_right, head_top, head_bottom)
+		draw_priest(emotion, head_left, head_right, head_top, head_bottom)
 	elseif name == "big beardy man" then
-		draw_base_left(head_left,              head_top)
-		draw_base_right(head_right - tiles(4), head_top)
-		draw_ear_left(head_left - tiles(1) + 1, head_top + tiles(3))
-		draw_ear_right(head_right - 1,          head_top + tiles(3))
-		draw_neutral_eyes(head_top, head_left, head_right)
-		draw_neutral_mouth(head_bottom, head_left, head_right)
-		draw_big_beardy_man_features(head_left, head_right, head_top, head_bottom)
+		draw_big_beardy_man(emotion, head_left, head_right, head_top, head_bottom)
     elseif name == "diver" then
-		draw_diver(head_left, head_right, head_top, head_bottom)
+		draw_diver(emotion, head_left, head_right, head_top, head_bottom)
 	end
 end
