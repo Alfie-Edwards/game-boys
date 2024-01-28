@@ -35,6 +35,9 @@ laughs = {
 -- laugh durations -------------
 laugh_durations = { 2, 1.25, 0.75 }
 
+-- slide anim scale
+slide_anim_scale = 0.02
+
 -- Speech bubble dimensions ----
 max_line_len = 28
 max_lines = 4
@@ -84,6 +87,7 @@ function _update60()
     local i = 1
     while i <= #timers do
         if ((t() - timers[i].t0) >= timers[i].length) and (timers[i].cond == nil or timers[i].cond()) then
+            printh("exec timer")
             timers[i].action()
             deli(timers, i)
         else
@@ -123,8 +127,34 @@ function _update60()
         end
     end
 
-    -- Sliders and buttons interaction.
+    -- printh(tostr(animating).." "..tostr(saying).." "..head_y_offset.." "..person_state)
     if not (animating or saying) then
+
+        if person_state == "entering" and head_y_offset == -128 then
+            local frames = {}
+            for i=-127, 0, 1 do
+                frames[(128+i) * slide_anim_scale] = function() head_y_offset = i end
+                printh(tostr(i).." "..tostr((128-i) * slide_anim_scale))
+            end
+            frames[129 * slide_anim_scale] = function()
+                person_state = "in_shop"
+                local person = current_person()
+                show_initial_prompt(person.initial_prompt, person.initial_laugh)
+            end
+            animate(frames, 129 * slide_anim_scale)
+        end
+
+        if person_state == "leaving" and head_y_offset == 0 then
+            local frames = {}
+            for i=1,-128,-1 do
+                frames[-i * slide_anim_scale] = function() head_y_offset = i end
+            end
+            frames[129 * slide_anim_scale] = function()
+                next_person()
+            end
+            animate(frames, 129 * slide_anim_scale)
+        end
+
         -- Grab and ungrab slider handles.
         if mouse.pressed then
             for _, slider in pairs(sliders) do
@@ -171,7 +201,7 @@ function nearest_slider_value(slider)
     local dst_to_bar = max(max(
         abs(mouse.y -slider_handle_pos(slider, 1).y),
         max(slider_handle_pos(slider, 1).x - mouse.x)),
-        max(slider_handle_pos(slider, 1).x - mouse.x))
+        max(mouse.x - slider_handle_pos(slider, 3).x))
 
     return nearest, nearest_dist, dst_to_bar
 end
@@ -290,7 +320,9 @@ function _draw()
 	end
 
 	-- Head
+    camera(0, head_y_offset)
 	draw_head(current_person().name, current_emotion())
+    camera()
 
     -- Laugh maker
     pal_dark_blue()

@@ -225,23 +225,18 @@ function current_person()
 	return people[people_sequencing[current_person_index]]
 end
 
-function set_person(person)
-	show_person(person.face, person.skin_tone, person.name)
-	show_initial_prompt(person.initial_prompt, person.initial_laugh)
-end
-
 function next_person()
 	current_person_index = (current_person_index % #people) + 1
 	if (current_person_index == 1) shuffle_people_sequence()
-	set_person(current_person())
 	adjustment_number = 0
+	person_state = "entering"
 end
 
 function init_people()
+    head_y_offset = -128
 	people_sequencing = {}
 	current_person_index = 0
 	adjustment_number = 0
-	ready_for_next_person = false
 
 	for i,_ in ipairs(people) do
 		add(people_sequencing, i)
@@ -297,7 +292,7 @@ function accept()
 	score += 1
 	show_accepted(current_person().acceptance_text,
 	              current_person().desired_laugh)
-	ready_for_next_person = true
+	person_state = "leaving"
 end
 
 function reject()
@@ -305,7 +300,7 @@ function reject()
 	if health == 0 then
 		lose()
 	end
-	ready_for_next_person = true
+	person_state = "leaving"
 end
 
 function choose(choice)
