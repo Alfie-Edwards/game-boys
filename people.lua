@@ -39,7 +39,7 @@ people = {
 		},
 		acceptance_text = "wow, that's perfect!! Now no one will know i'm a threat",
 		rejection_text = "that's too bad, i really needed a new laugh. i hope they don't catch me",
-		screen_pal = { [12] = -2, [14] = -17, [15] = 9 },
+		screen_pal = { [12] = -2, [14] = -7, [15] = 9 },
 	},
 	{
 		name = "priest",
