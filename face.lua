@@ -122,7 +122,7 @@ sprites = {
 				palt(1, false)
 				pal({[1] = 12, [12] = 1})
 				spr(224, x, y - tiles(1), 2, 2, false, false)
-				pal({[1] = 1, [12] = 12})
+				pal(0)
 				palt(12, false)
 				palt(1, false)
 			end,
@@ -138,7 +138,7 @@ sprites = {
 				palt(1, false)
 				pal({[1] = 12, [12] = 1})
 				spr(64, x, y, 1, 1, false, false)
-				pal({[1] = 1, [12] = 12})
+				pal(0)
 				palt(12, false)
 				palt(1, false)
 			end,
@@ -373,6 +373,7 @@ function draw_head(name, emotion)
 
 	-- -- TODO #temp
 	-- name = "diver"
+	-- name = "priest"
 
 	-- setup
 	palt(0, false)
