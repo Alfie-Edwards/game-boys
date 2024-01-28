@@ -360,12 +360,13 @@ function _draw()
         rectfill(h.x - 1, h.y - 1, h.x + 1, h.y + 1, 10)
     end
 
-    -- todo: palette swap on mouse over.
+    spr(69, buttons.submit.x - 8, buttons.submit.y - 8, 2, 2)
     if (mouse_is_over_button(buttons.submit)) then
+        camera(0, 1)
         spr(69, buttons.submit.x - 8, buttons.submit.y - 8, 2, 2)
-    else
-        spr(69, buttons.submit.x - 8, buttons.submit.y - 8, 2, 2)
+        camera(0, 0)
     end
+    
 
     -- Speech bubble
     if saying then
