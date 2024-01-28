@@ -44,6 +44,7 @@ function _init()
 	update_mouse()
     timers = {}
     laughing = false
+    animating = false
     current_laugh = nil
     started = false
     health = max_health
@@ -79,6 +80,17 @@ end
 function _update60()
     update_mouse()
 
+    -- Update timers.
+    local i = 1
+    while i <= #timers do
+        if ((t() - timers[i].t0) >= timers[i].length) and (timers[i].cond == nil or timers[i].cond()) then
+            timers[i].action()
+            deli(timers, i)
+        else
+            i += 1
+        end
+    end
+
     if not started then
         if any_input() then
             started = true
@@ -87,9 +99,14 @@ function _update60()
         return
     end
 
-    if lost and btn(5) then
-        restart()
-    elseif saying then
+    if lost then
+        if any_input() then
+            restart()
+        end
+        return
+    end
+
+    if saying then
         if saying_para_done() then
             if any_input() then
                 saying.para += 1
@@ -104,15 +121,15 @@ function _update60()
                 t_para_completed = t()
             end
         end
-    elseif ready_for_next_person then
-        next_person()
-        ready_for_next_person = false
-    else
+    end
+
+    -- Sliders and buttons interaction.
+    if not (animating or saying) then
         -- Grab and ungrab slider handles.
         if mouse.pressed then
             for _, slider in pairs(sliders) do
-                local handle = slider_handle_pos(slider)
-                if sqdst(mouse.x, mouse.y, handle.x, handle.y) <= 8 then
+                local _, _, dist_to_bar = nearest_slider_value(slider)
+                if dist_to_bar <= 3 then
                     slider.grabbed = true
                 end
             end
@@ -125,17 +142,7 @@ function _update60()
         -- Move grabbed slider handles to the nearest point to the mouse.
         for _, slider in pairs(sliders) do
             if slider.grabbed then
-                local nearest = {}
-                local nearest_dist = 32000
-                for value=1, 3 do
-                    local handle = slider_handle_pos(slider, value)
-                    local dst = sqdst(mouse.x, mouse.y, handle.x, handle.y)
-                    if dst < nearest_dist then
-                        nearest_dist = dst
-                        nearest = value
-                    end
-                end
-                slider.value = nearest
+                slider.value = nearest_slider_value(slider)
             end
         end
 
@@ -148,17 +155,33 @@ function _update60()
             end
         end
     end
+end
 
-    -- Update timers.
-    local i = 1
-    while i <= #timers do
-        if ((t() - timers[i].t0) >= timers[i].length) and (timers[i].cond == nil or timers[i].cond()) then
-            timers[i].action()
-            deli(timers, i)
-        else
-            i += 1
+function nearest_slider_value(slider)
+    local nearest = {}
+    local nearest_dist = 32000
+    for value=1, 3 do
+        local handle = slider_handle_pos(slider, value)
+        local dst = sqdst(mouse.x, mouse.y, handle.x, handle.y)
+        if dst < nearest_dist then
+            nearest_dist = dst
+            nearest = value
         end
     end
+    local dst_to_bar = max(max(
+        abs(mouse.y -slider_handle_pos(slider, 1).y),
+        max(slider_handle_pos(slider, 1).x - mouse.x)),
+        max(slider_handle_pos(slider, 1).x - mouse.x))
+
+    return nearest, nearest_dist, dst_to_bar
+end
+
+function animate(stages, t_end)  -- {delay(s) = action, ...}, delay(s) to set animating back to false
+    animating = true
+    for t, action in pairs(stages) do
+        add_timer(t, action)
+    end
+    add_timer(t_end, function() animating = false end)
 end
 
 function lnpx(text) -- length of text in pixels
@@ -423,13 +446,18 @@ function play_laugh(laugh_params)
             current_laugh = nil
         end
     end
+    add_timer(length, action)
+
+end
+
+function add_timer(length, action, cond)
     add(timers, {
         t0 = t(),
         length = length,
         action = action,
+        cond = cond,
     })
-
-end
+end 
 
 function show_person(face_idx, skin_tone, name)
 	say("set person to "..name..", idx "..face_idx..", skin tone "..skin_tone)
