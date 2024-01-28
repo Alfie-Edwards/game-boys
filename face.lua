@@ -279,13 +279,41 @@ function draw_priest(emotion, head_left, head_right, head_top, head_bottom)
 	sprites.base(head_left, head_top)
 	draw_ears(head_left, head_right, head_top)
 
-	if emotion == "laughing" then
-		sprites.priest.eyes(head_left + 4, head_right - tiles(3) - 4,
-		                    head_top + tiles(3))
-		sprites.priest.mouth(head_left + tiles(2.5) - 1, head_bottom - tiles(4) - 1)
-	else
+	if emotion == "neutral" then
 		draw_neutral_eyes(head_top, head_left, head_right)
 		draw_neutral_mouth(head_bottom, head_left, head_right)
+	else
+		if emotion == "angry" then
+			palt(13, true)
+			palt(0, false)
+			palt(7, true)
+			palt(-15, true)
+		else
+			palt(13, true)
+			palt(0, false)
+			palt(7, false)
+			palt(5, true)
+			palt(2, true)
+		end
+		sprites.priest.eyes(head_left + 4, head_right - tiles(3) - 4,
+		                    head_top + tiles(3))
+		reset_palt()
+
+		if emotion == "angry" then
+			palt(13, true)
+			palt(0, false)
+			palt(3, true)
+			palt(9, true)
+			palt(10, true)
+			palt(11, true)
+		else
+			palt(13, true)
+			palt(0, false)
+			palt(1, true)
+			palt(2, true)
+		end
+		sprites.priest.mouth(head_left + tiles(2.5) - 1, head_bottom - tiles(4) - 1)
+		reset_palt()
 	end
 
 	-- features
