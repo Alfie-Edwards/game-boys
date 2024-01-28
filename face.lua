@@ -185,6 +185,14 @@ function set_display_pal(name)
 	pal(dpal, 1)
 end
 
+function reverse_map(mapping)
+	local m = {}
+	for k,v in pairs(mapping) do
+		m[v] = m[k]
+	end
+	pal(m)
+end
+
 function tiles(x)
 	return x * 8
 end
@@ -380,6 +388,7 @@ function draw_diver(emotion, head_left, head_right, head_top, head_bottom)
 	local bubbles_stage = flr((t() * 5) % #sprites.diver.bubbles) + 1
 
 	sprites.diver.bubbles[bubbles_stage](bubbles_x, bubbles_y)
+
 end
 
 function draw_clown(emotion, head_left, head_right, head_top, head_bottom)

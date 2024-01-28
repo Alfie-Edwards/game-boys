@@ -115,7 +115,7 @@ people = {
 		},
 		acceptance_text = {"that's amazing! I'll fit right in", "they'll never call me land lubber again"},
 		rejection_text = {"no, no... this won't do at all...", "well, i guess there's always catfish cabaret"},
-		screen_pal = { [15] = 12 },
+		screen_pal = { [15] = 12, [14] = -16 },
 	},
 	{
 		name = "bobo the clown",
