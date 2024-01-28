@@ -320,7 +320,7 @@ function _draw()
 
 	-- Head
     camera(0, head_y_offset)
-	draw_head(current_person().name, current_emotion())
+	-- draw_head(current_person().name, current_emotion())
     camera()
 
     -- Laugh maker
@@ -403,8 +403,8 @@ function draw_45(x, y, col_top, col_bot, flip)
         for i = 0, 7 do
             line(x + i, y + i, x + 7, y + i, col_top)
         end
-        for i = 0, 6 do
-            line(x, y + i + 1, x + i, y + i + 1, col_bot)
+        for i = 0, 7 do
+            line(x, y + i, x + i, y + i, col_bot)
         end
     else
         for i = 0, 7 do
@@ -418,27 +418,56 @@ end
 
 function draw_bg()
 	cls(7)
-    rectfill(4 * 8, 0, 7 * 8 - 1, 5 * 8 - 1, 9) -- door
-    circfill(6.5 * 8, 0.5 * 8, 2, 2)
+
+    circfill(6.5 * 8, 0.5 * 8, 2, 2) -- handle
     circfill(6.5 * 8 + 1, 0.5 * 8 - 1, 1, 7)
     pset(6.5 * 8 + 1, 0.5 * 8 - 1, 9)
-    rectfill(7 * 8, 0, 16 * 8 - 1, 5 * 8 - 1, 9) -- wall
-    rectfill(7 * 8, 0, 8 * 8 - 1, 4 * 8 - 1, 7) -- wall
-    rectfill(8 * 8, 4 * 8, 14 * 8 - 1, 5 * 8 - 1, 4) -- wall
-    draw_45(14 * 8, 4 * 8, 9, 4, true)
-    draw_45(15 * 8, 5 * 8, 4, 7, true)
-    rectfill(8 * 8, 0, 14 * 8 - 1, 4 * 8 - 1, 8) -- window
+    rectfill(7 * 8, 0, 16 * 8 - 1, 4 * 8 - 1, 9) -- wall
+    rectfill(7 * 8, 0, 8 * 8 - 1, 3 * 8 - 1, 7)
+    rectfill(8 * 8, 3 * 8, 14 * 8 - 1, 4 * 8 - 1, 4)
+    draw_45(14 * 8, 3 * 8, 9, 4, true)
+    draw_45(15 * 8, 4 * 8, 4, 7, true)
+    rectfill(8 * 8, 0, 14 * 8 - 1, 3 * 8 - 1, 8) -- window
+    rect(8 * 8 - 1, -1, 14 * 8, 3 * 8 - 1, 7)
+    rect(8 * 8, -1, 14 * 8 - 1, 3 * 8 - 2, 4)
+    rect(8 * 8 + 1, -1, 14 * 8 - 2, 3 * 8 - 3, 9)
+    pset(14 * 8 - 1, 3 * 8 - 2, 9)
+    pset(14 * 8, 3 * 8 - 1, 4)
+    line(8 * 8 + 1, 0, 8 * 8 + 1, 3 * 8 - 4, 4)
+    line(8 * 8, 0, 8 * 8, 3 * 8 - 3, 7)
+    line(8 * 8 - 1, 0, 8 * 8 - 1, 3 * 8 - 1, 2)
 
     -- floor
-    draw_45(7 * 8, 4 * 8, 7, 4)
-    draw_45(6 * 8, 5 * 8, 2, 7)
-    draw_45(5 * 8, 6 * 8, 2, 7)
-    draw_45(4 * 8, 7 * 8, 2, 7)
+    rectfill(4 * 8, 4 * 8, 6 * 8 - 1, 5 * 8 - 1, 2)
+    rectfill(4 * 8, 5 * 8, 5 * 8 - 1, 6 * 8 - 1, 2)
+    draw_45(7 * 8, 3 * 8, 7, 4)
+    draw_45(6 * 8, 4 * 8, 2, 7)
+    draw_45(5 * 8, 5 * 8, 2, 7)
+    draw_45(4 * 8, 6 * 8, 2, 7)
+
+    rectfill(1 * 8, 7 * 8, 3 * 8 - 1, 8 * 8 - 1, 2)
+    rectfill(1 * 8, 8 * 8, 2 * 8 - 1, 9 * 8 - 1, 2)
+    draw_45(2 * 8, 8 * 8, 2, 7)
+    draw_45(1 * 8, 9 * 8, 2, 7)
+
+    rectfill(4 * 8, 0, 7 * 8 - 1, 4 * 8 - 1, 9) -- door
+    line(4 * 8, 0, 4 * 8, 4 * 8 - 1, 7)
+    line(4 * 8 + 1, 0, 4 * 8 + 1, 4 * 8 - 1, 4)
+    pset(4 * 8 + 2, 4 * 8 - 9, 5)
+    line(4 * 8 + 2, 4 * 8 - 3, 4 * 8 + 2, 4 * 8 - 7, 5)
+    line(4 * 8 + 2, 4 * 8 - 3, 4 * 8 + 3, 4 * 8 - 3, 5)
+    line(4 * 8 + 2, 4 * 8 - 2, 5 * 8 + 1, 4 * 8 - 2, 5)
+    line(4 * 8 + 2, 4 * 8 - 1, 7 * 8 - 1, 4 * 8 - 1, 5)
+    line(7 * 8 + 1, 0, 7 * 8 + 1, 4 * 8 - 1, 2)
+    pset(7 * 8, 4 * 8, 2)
+    line(7 * 8, 4 * 8 - 1, 7 * 8, 4 * 8 - 3, 2)
+    line(7 * 8 + 2, 0, 7 * 8 + 2, 4 * 8 - 3, 9)
 
     -- shelves
     draw_rotated_clockwise(0, 0, 12, 1, 64, 0, true)
-    rectfill(1 * 8, 0, 3 * 8 - 1, 7 * 8 - 1, 4)
-    map(64, 1, 3 * 8, 0, 1, 7)
+    rectfill(1 * 8, 0, 3 * 8 - 1, 8 * 8 - 1, 4)
+    map(64, 1, 3 * 8, 0, 1, 8)
+    spr(0, 3 * 8, 0)
 end
 
 function slider_handle_pos(slider, value)
