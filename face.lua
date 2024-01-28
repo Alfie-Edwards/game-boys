@@ -30,8 +30,8 @@ sprites = {
 	beardy = {
 		beard =
 			function(x, y)
-				spr(139, x, y, 5, 4, false, false)
-				spr(139, x + tiles(5) - 1, y, 5, 4, true, false)
+				map(26, 0, x, y, 5, 4)
+				draw_flipped_y_axis(x + tiles(5) - 1, y, 5, 4, 26, 0)
 			end,
 		collar =
 			function(x, y)
@@ -61,8 +61,8 @@ sprites = {
 	priest = {
 		collar =
 			function(x, y)
-				spr(101, x, y, 5, 2, false, false)
-				spr(101, x + tiles(5), y, 5, 2, true, false)
+				map(5, 4, x, y, 5, 2)
+				draw_flipped_y_axis(x + tiles(5), y, 5, 2, 5, 4)
 			end,
 		eyes =
 			function(x_left, x_right, y)
@@ -195,6 +195,19 @@ end
 
 function tiles(x)
 	return x * 8
+end
+
+function draw_flipped_y_axis(x, y, w_tiles, h_tiles, map_x, map_y)
+	local w_px = w_tiles * 8 - 1
+	local h_px = h_tiles * 8 - 1
+
+	for i = 0, h_px do
+		tline(
+			x + w_px, y + i,
+			x,        y + i,
+			map_x, map_y + i/8
+		)
+	end
 end
 
 function draw_scaled(x, y, w_tiles, h_tiles, map_x, map_y, scale)
@@ -365,12 +378,6 @@ end
 
 function draw_head(name, emotion)
 	if (emotion == nil) emotion = "neutral"
-
-	-- TODO #temp
-	-- name = "big beardy man"
-	-- name = "priest"
-	-- name = "diver"
-	-- name = "clown"
 
 	-- setup
 	palt(0, false)
