@@ -143,7 +143,34 @@ sprites = {
 				palt(1, false)
 			end,
 		},
-	}
+	},
+	clown = {
+		collar =
+			function(x, y)
+				spr(171, x,            y,     1, 2, false, false)
+				spr(171, x + tiles(1), y + 3, 1, 2, false, false)
+				spr(171, x + tiles(2), y + 6, 1, 2, false, false)
+				spr(171, x + tiles(3), y + 6, 1, 2, false, false)
+				spr(171, x + tiles(4), y + 6, 1, 2, false, false)
+				spr(171, x + tiles(5), y + 3, 1, 2, false, false)
+				spr(171, x + tiles(6), y,     1, 2, false, false)
+			end,
+		eyes =
+			function(x_left, x_right, y)
+				spr(198, x_left,  y, 3, 3, true, false)
+				spr(198, x_right, y, 3, 3, false, false)
+			end,
+		mouth =
+			function(x, y)
+				spr(201, x, y, 3, 3, false, false)
+			end,
+		nose =
+			function(x, y)
+				spr( 77, x,            y,            2, 1, false, false)
+				spr( 79, x,            y + tiles(1), 2, 1, false, false)
+				spr(127, x + tiles(1), y + tiles(1), 2, 1, false, false)
+			end,
+	},
 }
 
 function tiles(x)
@@ -258,9 +285,25 @@ function draw_diver(emotion, head_left, head_right, head_top, head_bottom)
 end
 
 function draw_clown(emotion, head_left, head_right, head_top, head_bottom)
+	-- underneath features
+	sprites.clown.collar(head_left + tiles(0.5), head_bottom - tiles(2))
+
 	-- base layer
 	sprites.base(head_left, head_top)
 	draw_ears(head_left, head_right, head_top)
+
+	-- features
+	if emotion == "neutral" then
+		draw_neutral_mouth(head_bottom, head_left, head_right)
+		draw_neutral_eyes(head_top, head_left, head_right)
+	else
+		sprites.clown.mouth(head_left + tiles(2.5), head_bottom - tiles(4))
+		sprites.clown.eyes(
+			head_left + tiles(1) - 5,
+			head_right - tiles(3) - 3,
+			head_top + tiles(3))
+	end
+	sprites.clown.nose(head_left + tiles(3), head_top + tiles(4.5))
 end
 
 function draw_head(name, emotion)
@@ -269,8 +312,8 @@ function draw_head(name, emotion)
 	-- TODO #temp
 	-- name = "big beardy man"
 	-- name = "priest"
-	name = "diver"
-	-- name = "clown"
+	-- name = "diver"
+	name = "clown"
 
 	-- setup
 	pal()
