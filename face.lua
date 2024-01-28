@@ -170,11 +170,32 @@ sprites = {
 				spr( 79, x,            y + tiles(1), 2, 1, false, false)
 				spr(127, x + tiles(1), y + tiles(1), 2, 1, false, false)
 			end,
+		hair =
+			function(x_left, x_right, y)
+				draw_scaled(x_left,  y, 2, 2, 24, 0, 2)
+				draw_scaled(x_right, y, 2, 2, 24, 0, 2)
+			end
 	},
 }
 
 function tiles(x)
 	return x * 8
+end
+
+function draw_scaled(x, y, w_tiles, h_tiles, map_x, map_y, scale)
+	local w_px = w_tiles * 8 - 1
+	local h_px = h_tiles * 8 - 1
+
+	for i = 0, h_px do
+		for j = 0, scale - 1 do
+			tline(
+				x,                      y + (i * scale + j),
+				x + (w_px + 1) * scale, y + (i * scale + j),
+				map_x, map_y + i/8,
+				1/(8 * scale), 0
+			)
+		end
+	end
 end
 
 function draw_rotated_anticlockwise(x, y, w_tiles, h_tiles, map_x, map_y, flip_y)
@@ -304,6 +325,11 @@ function draw_clown(emotion, head_left, head_right, head_top, head_bottom)
 			head_top + tiles(3))
 	end
 	sprites.clown.nose(head_left + tiles(3), head_top + tiles(4.5))
+
+	sprites.clown.hair(
+		head_left - tiles(1.5),
+		head_right - tiles(2.5),
+		head_top - tiles(1))
 end
 
 function draw_head(name, emotion)
