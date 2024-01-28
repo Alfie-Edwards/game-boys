@@ -231,6 +231,61 @@ function draw_diver(emotion, head_left, head_right, head_top, head_bottom)
 	draw_helmet_right(head_right - tiles(4), head_top)
 	draw_side_left(head_left - tiles(2) + 1, head_top + tiles(2))
 	draw_side_right(head_right - 1,          head_top + tiles(2))
+
+	local bubbles_x = head_left + tiles(3.5)
+	local bubbles_y = head_top
+	local bubbles_stages = {
+		function ()
+			palt(12, false)
+			palt(1, true)
+			spr(64, bubbles_x, bubbles_y, 1, 1, false, false)
+			palt(12, false)
+			palt(1, false)
+		end,
+		function ()
+			palt(12, false)
+			palt(1, true)
+			spr(65, bubbles_x, bubbles_y, 1, 1, false, false)
+			palt(12, false)
+			palt(1, false)
+		end,
+		function ()
+			palt(12, false)
+			palt(1, true)
+			spr(224, bubbles_x, bubbles_y - tiles(1), 2, 2, false, false)
+			palt(12, false)
+			palt(1, false)
+		end,
+		function ()
+			palt(12, true)
+			palt(1, false)
+			pal(1, 12)
+			spr(224, bubbles_x, bubbles_y - tiles(1), 2, 2, false, false)
+			pal(1)
+			palt(12, false)
+			palt(1, false)
+		end,
+		function ()
+			palt(12, false)
+			palt(1, true)
+			spr(224, bubbles_x, bubbles_y - tiles(1), 2, 2, false, false)
+			palt(12, false)
+			palt(1, false)
+		end,
+		function ()
+			palt(12, true)
+			palt(1, false)
+			pal(1, 12)
+			spr(64, bubbles_x, bubbles_y, 1, 1, false, false)
+			pal(1)
+			palt(12, false)
+			palt(1, false)
+		end,
+	}
+
+	local bubbles_stage = flr((t() * 5) % #bubbles_stages) + 1
+
+	bubbles_stages[bubbles_stage]()
 end
 
 function draw_head(name, emotion)
@@ -238,8 +293,8 @@ function draw_head(name, emotion)
 
 	-- TODO #temp
 	-- name = "big beardy man"
-	name = "priest"
-    -- name = "diver"
+	-- name = "priest"
+	name = "diver"
 
 	-- setup
 	pal()
