@@ -313,8 +313,8 @@ function draw_head(name, emotion)
 	-- TODO #temp
 	-- name = "big beardy man"
 	-- name = "priest"
-	name = "diver"
-	-- name = "clown"
+	-- name = "diver"
+	name = "clown"
 
 	-- setup
 	pal()
