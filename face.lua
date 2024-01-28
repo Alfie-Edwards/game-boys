@@ -52,29 +52,6 @@ function draw_base_left(x, y)
 	draw_rotated_anticlockwise(x, y,
 	                           10, 4,
 	                           0, 0)
-	-- local w_tiles = 10
-	-- local h_tiles = 4
-
-	-- local w = w_tiles * 8
-	-- local h = h_tiles * 8
-	-- local x = 64 - h
-	-- local y = 10
-
-	-- for i = 0, h do
-	-- 	tline(
-	-- 		x + i, (y + w),
-	-- 		x + i, (y + w) - w,
-	-- 		0,     i/8
-	-- 	)
-	-- end
-
-	-- for i = 0, h do
-	-- 	tline(
-	-- 		x,     y + i,
-	-- 		x + w, y + i,
-	-- 		0,     i/8
-	-- 	)
-	-- end
 end
 
 function draw_base_right(x, y)
@@ -154,7 +131,6 @@ function draw_priest(emotion, head_left, head_right, head_top, head_bottom)
 		draw_neutral_eyes(head_top, head_left, head_right)
 		draw_neutral_mouth(head_bottom, head_left, head_right)
 	end
-
 
 	-- features
 	draw_collar_left(64 - tiles(5),  head_bottom - tiles(1))
