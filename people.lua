@@ -57,24 +57,24 @@ people = {
 			length = 0,
 		},
 		initial_prompt = {
-			"greeting my child",
+			"greetings my child",
 			"may the lord bless you, as he blesses us all. hahaha",
-			"i require a laugh, a power laugh, one to shake old lucifer's bones!"},
+			"i require a laugh, a powerful laugh, one to shake old lucifer's bones!"},
 		adjustment_prompts = {
 			pitch = {
-				less = "give me something deep, to shake the walls of jericho"
+				less = "give me something deep, to shake the very walls of jericho",
 			},
 			speed = {
-				less = "calm yourself child, there's no need to rush"
+				less = "calm yourself child, there's no need to rush",
 			},
 			length = {
-				more = "i'd like some more laugh, really use the acoustics"
+				more = "i'm afraid that's not enough, child. i need a sermon, not a prayer!",
 			},
 			fun = {
-				less = "please, some gravitas. immortal souls are at stake"
+				less = "please, some gravitas. immortal souls are at stake",
 			},
 		},
-		acceptance_text = "a thousand blessings!! now i can terrify everyone at the rectory",
+		acceptance_text = "a thousand blessings upon you!! now i can terrify everyone at the rectory",
 		rejection_text = "god tests us all child, and we cannot always succeed",
 		screen_pal = { [13] = -2, [14] = -7, [15] = -16 },
 	},
