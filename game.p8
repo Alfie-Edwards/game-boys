@@ -12,14 +12,6 @@ poke(0x5F2D, 1)
 max_health = 3
 max_adjustments = 3
 
--- state -----------------------
-health = max_health
-score = 0
-lost = false
-
-laughing = false
-current_laugh = nil
-
 -- laughs ----------------------
 -- speed, pitch, fun
 laughs = {
@@ -53,6 +45,10 @@ function _init()
     timers = {}
     laughing = false
     current_laugh = nil
+    started = false
+    health = max_health
+    score = 0
+    lost = false
 
     sliders = {
         length = { name_x = 8, y = 100, value = 1, grabbed = false },
@@ -71,7 +67,6 @@ function _init()
             end
         },
     }
-	init_people()
 end
 
 function restart()
@@ -83,6 +78,14 @@ end
 
 function _update60()
     update_mouse()
+
+    if not started then
+        if any_input() then
+            started = true
+            init_people()
+        end
+        return
+    end
 
     if lost and btn(5) then
         restart()
@@ -199,6 +202,24 @@ function draw_lose_screen()
 	print(replay_end_text, (64 - replay_text_length / 2) + lnpx(replay_start_text..replay_button), replay_text_y)
 end
 
+function draw_start_screen()
+    cls(1)
+
+    color(0)
+    print_centered("make m'laff", 60)
+    color(5)
+    print_centered("make m'laff", 59)
+
+    color(1)
+    if strobe(0.66) then
+        print_centered("PRESS ANY BUTTON...", 100)
+    end
+end
+
+function print_centered(text, y, offset)
+    print(text, (128 - lnpx(text)) / 2 + (offset or 0), y)
+end
+
 function wrap(text)
     local lines = {}
     for _, para in ipairs(split(text, "\n")) do
@@ -234,6 +255,11 @@ end
 
 function _draw()
 	cls(4)
+
+    if not started then
+        draw_start_screen()
+        return
+    end
 
 	if lost then
 		draw_lose_screen()
@@ -298,13 +324,12 @@ function _draw()
     -- person name
     local name = current_person().name
 	color(0)
-    local x = (128 - lnpx(name)) / 2
-    print(name, x, 3)
-    print(name, x - 1, 3)
-    print(name, x + 1, 3)
-    print(name, x, 4)
+    print_centered(name, 3)
+    print_centered(name, 3, -1)
+    print_centered(name, 3, 1)
+    print_centered(name, 4)
 	color(7)
-    print(name, x, 2)
+    print_centered(name, 2)
 
     -- score
 	color(6)
