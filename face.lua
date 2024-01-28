@@ -1,14 +1,14 @@
 sprite_info = {
-	neutral_eyes_sprite = 80,
-	neutral_mouth_sprite = 83,
+	neutral_eyes = 80,
+	neutral_mouth = 83,
 	["big beardy man"] = {
-		beard_sprite = 139,
-		collar_sprite = 122,
-		hair_sprite = 74,
-		moustache_sprite = 71,
+		beard = 139,
+		collar = 122,
+		hair = 74,
+		moustache = 71,
 	},
 	priest = {
-		collar_sprite = 101,
+		collar = 101,
 	},
 }
 
@@ -95,81 +95,86 @@ function tiles(x)
 	return x * 8
 end
 
-function draw_neutral_eyes(sprite_idx, head_top, head_left, head_right)
-	function draw_neutral_eyes_left(sprite_idx, x, y)
-		spr(sprite_idx, x, y, 3, 3, true, false)
+function draw_neutral_eyes(head_top, head_left, head_right)
+	function draw_neutral_eyes_left(x, y)
+		spr(sprite_info.neutral_eyes, x, y, 3, 3, true, false)
 	end
-	function draw_neutral_eyes_right(sprite_idx, x, y)
-		spr(sprite_idx, x, y, 3, 3, false, false)
+	function draw_neutral_eyes_right(x, y)
+		spr(sprite_info.neutral_eyes, x, y, 3, 3, false, false)
 	end
 
-	draw_neutral_eyes_left(sprite_idx,  head_left + 3,             head_top + tiles(3))
-	draw_neutral_eyes_right(sprite_idx, head_right - tiles(3) - 3, head_top + tiles(3))
+	draw_neutral_eyes_left(head_left + 3,             head_top + tiles(3))
+	draw_neutral_eyes_right(head_right - tiles(3) - 3, head_top + tiles(3))
 end
 
-function draw_neutral_mouth(sprite_idx, head_bottom, head_left, head_right)
-	function draw_neutral_mouth_left(sprite_idx, x, y)
-		spr(sprite_idx, x, y, 2, 3, false, false)
+function draw_neutral_mouth(head_bottom, head_left, head_right)
+	function draw_neutral_mouth_left(x, y)
+		spr(sprite_info.neutral_mouth, x, y, 2, 3, false, false)
 	end
-	function draw_neutral_mouth_right(sprite_idx, x, y)
-		spr(sprite_idx, x, y, 2, 3, true, false)
+	function draw_neutral_mouth_right(x, y)
+		spr(sprite_info.neutral_mouth, x, y, 2, 3, true, false)
 	end
 
-	draw_neutral_mouth_left(sprite_idx,  head_left + tiles(2),  head_bottom - tiles(4))
-	draw_neutral_mouth_right(sprite_idx, head_right - tiles(4), head_bottom - tiles(4))
+	draw_neutral_mouth_left(head_left + tiles(2),  head_bottom - tiles(4))
+	draw_neutral_mouth_right(head_right - tiles(4), head_bottom - tiles(4))
 end
 
 function draw_priest(head_left, head_right, head_top, head_bottom)
-	function draw_collar_left(sprite_idx, x, y)
-		spr(sprite_idx, x, y, 5, 2, false, false)
+	function draw_collar_left(x, y)
+		spr(sprite_info.priest.collar, x, y, 5, 2, false, false)
 	end
-	function draw_collar_right(sprite_idx, x, y)
-		spr(sprite_idx, x, y, 5, 2, true, false)
+	function draw_collar_right(x, y)
+		spr(sprite_info.priest.collar, x, y, 5, 2, true, false)
 	end
 
-	draw_collar_left(sprite_info.priest.collar_sprite,  64 - tiles(5), head_bottom - tiles(1))
-	draw_collar_right(sprite_info.priest.collar_sprite, 64 - 1,        head_bottom - tiles(1))
+	draw_collar_left(64 - tiles(5), head_bottom - tiles(1))
+	draw_collar_right(64 - 1,        head_bottom - tiles(1))
 end
 
 function draw_big_beardy_man(head_left, head_right, head_top, head_bottom)
-	function draw_collar_left(sprite_idx, x, y)
-		spr(sprite_idx, x, y, 5, 1, false, false)
+	function draw_collar_left(x, y)
+		spr(sprite_info["big beardy man"].collar, x, y, 5, 1, false, false)
 	end
-	function draw_collar_right(sprite_idx, x, y)
-		spr(sprite_idx, x, y, 5, 1, true, false)
+	function draw_collar_right(x, y)
+		spr(sprite_info["big beardy man"].collar, x, y, 5, 1, true, false)
 	end
-	function draw_beard_left(sprite_idx, x, y)
-		spr(sprite_idx, x, y, 5, 4, false, false)
+	function draw_beard_left(x, y)
+		spr(sprite_info["big beardy man"].beard, x, y, 5, 4, false, false)
 	end
-	function draw_beard_right(sprite_idx, x, y)
-		spr(sprite_idx, x, y, 5, 4, true, false)
+	function draw_beard_right(x, y)
+		spr(sprite_info["big beardy man"].beard, x, y, 5, 4, true, false)
 	end
-	function draw_hair_left(sprite_idx, x, y)
-		spr(sprite_idx, x, y, 3, 3, false, false)
+	function draw_hair_left(x, y)
+		spr(sprite_info["big beardy man"].hair, x, y, 3, 3, false, false)
 	end
-	function draw_hair_right(sprite_idx, x, y)
-		spr(sprite_idx, x, y, 3, 3, true, false)
+	function draw_hair_right(x, y)
+		spr(sprite_info["big beardy man"].hair, x, y, 3, 3, true, false)
 	end
-	function draw_moustache_left(sprite_idx, x, y)
-		spr(sprite_idx, x, y, 3, 2, true, false)
+	function draw_moustache_left(x, y)
+		spr(sprite_info["big beardy man"].moustache, x, y, 3, 2, true, false)
+		-- draw_rotated_anticlockwise(x, y, 3, 2, 10, 1)
 	end
-	function draw_moustache_right(sprite_idx, x, y)
-		spr(sprite_idx, x, y, 3, 2, false, false)
+	function draw_moustache_right(x, y)
+		spr(sprite_info["big beardy man"].moustache, x, y, 3, 2, false, false)
+		-- draw_rotated_anticlockwise(x, y, 3, 2, 10, 1, true)
 	end
 
-	draw_collar_left(sprite_info["big beardy man"].collar_sprite,  64 - tiles(5) + 5, head_bottom)
-	draw_collar_right(sprite_info["big beardy man"].collar_sprite, 64 - 1 - 4,        head_bottom)
-	draw_beard_left(sprite_info["big beardy man"].beard_sprite,  64 - tiles(5), head_bottom - tiles(4))
-	draw_beard_right(sprite_info["big beardy man"].beard_sprite, 64 - 1,        head_bottom - tiles(4))
-	draw_hair_left(sprite_info["big beardy man"].hair_sprite,  64 - tiles(3), head_top - tiles(1))
-	draw_hair_right(sprite_info["big beardy man"].hair_sprite, 64 - 1,        head_top - tiles(1))
-	draw_moustache_left(sprite_info["big beardy man"].moustache_sprite,  64 - tiles(3), head_bottom - tiles(4) - 4)
-	draw_moustache_right(sprite_info["big beardy man"].moustache_sprite, 64 - 1,        head_bottom - tiles(4) - 4)
+	draw_collar_left(64 - tiles(5) + 5, head_bottom)
+	draw_collar_right(64 - 1 - 4,       head_bottom)
+	draw_beard_left(64 - tiles(5),      head_bottom - tiles(4))
+	draw_beard_right(64 - 1,            head_bottom - tiles(4))
+	draw_hair_left(64 - tiles(3),       head_top - tiles(1))
+	draw_hair_right(64 - 1,             head_top - tiles(1))
+	draw_moustache_left(64 - tiles(3),  head_bottom - tiles(4) - 4)
+	draw_moustache_right(64 - 1,        head_bottom - tiles(4) - 4)
+	-- draw_moustache_left(64 - tiles(2),  head_bottom - tiles(4))
+	-- draw_moustache_right(64 - 1,        head_bottom - tiles(4))
 end
 
 function draw_head(name)
 	-- TODO #temp
 	name = "big beardy man"
+	-- name = "priest"
 
 	-- setup
 	pal()
@@ -189,11 +194,8 @@ function draw_head(name)
 	draw_ear_right(head_right - 1,          head_top + tiles(3))
 
 	-- generic features
-	draw_neutral_eyes(sprite_info.neutral_eyes_sprite,
-	                  head_top, head_left, head_right)
-
-	draw_neutral_mouth(sprite_info.neutral_mouth_sprite,
-	                   head_bottom, head_left, head_right)
+	draw_neutral_eyes(head_top, head_left, head_right)
+	draw_neutral_mouth(head_bottom, head_left, head_right)
 
 	-- specific features
 	if name == "priest" then
