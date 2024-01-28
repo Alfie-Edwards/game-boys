@@ -120,9 +120,9 @@ sprites = {
 			function (x, y)
 				palt(12, true)
 				palt(1, false)
-				pal(1, 12)
+				pal({[1] = 12, [12] = 1})
 				spr(224, x, y - tiles(1), 2, 2, false, false)
-				pal(1)
+				pal({[1] = 1, [12] = 12})
 				palt(12, false)
 				palt(1, false)
 			end,
@@ -136,9 +136,9 @@ sprites = {
 			function (x, y)
 				palt(12, true)
 				palt(1, false)
-				pal(1, 12)
+				pal({[1] = 12, [12] = 1})
 				spr(64, x, y, 1, 1, false, false)
-				pal(1)
+				pal({[1] = 1, [12] = 12})
 				palt(12, false)
 				palt(1, false)
 			end,
@@ -292,8 +292,6 @@ function draw_priest(emotion, head_left, head_right, head_top, head_bottom)
 
 	-- features
 	sprites.priest.collar(head_left - tiles(1), head_bottom - tiles(1))
-
-	pal(1) -- reset display palette
 end
 
 function draw_big_beardy_man(emotion, head_left, head_right, head_top, head_bottom)
@@ -322,8 +320,6 @@ function draw_big_beardy_man(emotion, head_left, head_right, head_top, head_bott
 	if emotion ~= "neutral" then
 		sprites.beardy.mouth(64 - tiles(1.5), head_bottom - tiles(3))
 	end
-
-	pal(1) -- reset display palette
 end
 
 function draw_diver(emotion, head_left, head_right, head_top, head_bottom)
@@ -341,8 +337,6 @@ function draw_diver(emotion, head_left, head_right, head_top, head_bottom)
 	local bubbles_stage = flr((t() * 5) % #sprites.diver.bubbles) + 1
 
 	sprites.diver.bubbles[bubbles_stage](bubbles_x, bubbles_y)
-
-	pal(1) -- reset display palette
 end
 
 function draw_clown(emotion, head_left, head_right, head_top, head_bottom)
@@ -372,12 +366,13 @@ function draw_clown(emotion, head_left, head_right, head_top, head_bottom)
 		head_left - tiles(1.5),
 		head_right - tiles(2.5),
 		head_top - tiles(1))
-
-	pal(1) -- reset display palette
 end
 
 function draw_head(name, emotion)
 	if (emotion == nil) emotion = "neutral"
+
+	-- -- TODO #temp
+	-- name = "diver"
 
 	-- setup
 	palt(0, false)
@@ -393,7 +388,6 @@ function draw_head(name, emotion)
 	local head_right = (64 - 1) + tiles(4)
 	local head_top = 11 - laughing_y_offset
 	local head_bottom = head_top + tiles(10)
-
 
 	-- specific features
 	if name == "priest" then
