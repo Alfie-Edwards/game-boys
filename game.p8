@@ -290,7 +290,21 @@ function _draw()
 		health_str = health_str.."♥"
 	end
 	print(health_str, 128 - (lnpx(health_str) + 2), 4)
+
+    -- person name
 	color(7)
+    local name = current_person().name
+    print(name, (128 - lnpx(name)) / 2, 2)
+
+    -- score
+	color(6)
+    local offset = lnpx(score) + 5
+    pset(offset + 1, 5)
+    pset(offset + 3, 5)
+    pset(offset, 7)
+    line(offset + 1, 8, offset + 3, 8)
+    pset(offset + 4, 7)
+    print(score, 4, 4)
 
     -- Cursor
     color(0)
