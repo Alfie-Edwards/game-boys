@@ -312,10 +312,10 @@ function draw_big_beardy_man(emotion, head_left, head_right, head_top, head_bott
 
 	-- features
 	sprites.beardy.collar(head_left - tiles(1), head_bottom)
-	sprites.beardy.beard(64 - tiles(5), head_bottom - tiles(4))
 	sprites.beardy.hair(64 - tiles(3), head_top - 1)
 	sprites.beardy.hair_edge(head_left - tiles(1) + 1, head_right - tiles(1) - 1,
 	                         head_top + tiles(1))
+	sprites.beardy.beard(64 - tiles(5), head_bottom - tiles(4))
 
 	if emotion ~= "neutral" then
 		sprites.beardy.mouth(64 - tiles(1.5), head_bottom - tiles(3))
