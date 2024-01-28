@@ -302,10 +302,21 @@ function draw_big_beardy_man(emotion, head_left, head_right, head_top, head_bott
 	if emotion == "neutral" then
 		draw_neutral_eyes(head_top, head_left, head_right)
 	else
+		if emotion == "angry" then
+			palt(13, true)
+			palt(0, true)
+			palt(-16, true)
+		else
+			palt(13, true)
+			palt(1, true)
+			palt(2, true)
+			palt(3, true)
+		end
 		sprites.beardy.eyes(
 			head_left + tiles(2) - 5,
 			head_right - tiles(3) - 3,
 			head_top + tiles(3))
+		reset_palt()
 	end
 
 	-- features
@@ -316,7 +327,19 @@ function draw_big_beardy_man(emotion, head_left, head_right, head_top, head_bott
 	sprites.beardy.beard(64 - tiles(5), head_bottom - tiles(4))
 
 	if emotion ~= "neutral" then
+		palt(5, true)
+		palt(6, true)
+		palt(10, true)
+		if emotion == "angry" then
+			palt(0, true)
+			palt(14, true)
+			palt(-16, true)
+		else
+			palt(3, true)
+			palt(4, true)
+		end
 		sprites.beardy.mouth(64 - tiles(1.5), head_bottom - tiles(3))
+		reset_palt()
 	end
 end
 
@@ -364,6 +387,12 @@ function draw_clown(emotion, head_left, head_right, head_top, head_bottom)
 		head_left - tiles(1.5),
 		head_right - tiles(2.5),
 		head_top - tiles(1))
+end
+
+function reset_palt()
+	palt()
+	palt(0, false)
+	palt(13, true)
 end
 
 function draw_head(name, emotion)
