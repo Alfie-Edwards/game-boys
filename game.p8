@@ -42,6 +42,9 @@ slide_anim_scale = 0.02
 max_line_len = 28
 max_lines = 4
 
+-- fixed palette ---------------
+-- pal({[0]=7, 0, -14, -12, -10, -1, 4, 5, 6, 15, 14, -8}, 1)
+
 function _init()
 	pal_light_red()
 	update_mouse()
@@ -307,7 +310,7 @@ function wrap(text)
 end
 
 function _draw()
-	cls(4)
+    draw_bg()
 
     if not started then
         draw_start_screen()
@@ -399,6 +402,10 @@ function _draw()
     -- Cursor
     color(0)
     circfill(mouse.x, mouse.y, 1)
+end
+
+function draw_bg()
+	cls(5)
 end
 
 function slider_handle_pos(slider, value)
