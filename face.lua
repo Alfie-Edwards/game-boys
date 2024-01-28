@@ -417,6 +417,8 @@ function draw_clown(emotion, head_left, head_right, head_top, head_bottom)
 			palt(2, true)
 			palt(5, true)
 			palt(6, true)
+			palt(7, true)
+			palt(8, true)
 		end
 		sprites.clown.eyes(
 			head_left + tiles(1) - 5,
