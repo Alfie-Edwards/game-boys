@@ -287,7 +287,7 @@ function draw_priest(emotion, head_left, head_right, head_top, head_bottom)
 	else
 		if emotion == "angry" then
 			palt(13, true)
-			palt(0, false)
+			palt(0, true)
 			palt(7, true)
 			palt(-15, true)
 		else
@@ -411,6 +411,7 @@ function draw_clown(emotion, head_left, head_right, head_top, head_bottom)
 			palt(5, true)
 			palt(6, true)
 			palt(7, true)
+			palt(8, true)
 		else
 			palt(0, true)
 			palt(1, true)

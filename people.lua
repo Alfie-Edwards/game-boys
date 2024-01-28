@@ -77,7 +77,7 @@ people = {
 		},
 		acceptance_text = "a thousand blessings upon you!! now i can terrify everyone at the rectory",
 		rejection_text = "god tests us all child, and we cannot always succeed",
-		screen_pal = { [12] = -2, [14] = -7, [15] = -16 },
+		screen_pal = { [12] = 2, [14] = -7, [15] = -16 },
 	},
 	{
 		name = "diver",
