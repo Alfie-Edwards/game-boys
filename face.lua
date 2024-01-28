@@ -1,11 +1,13 @@
-sprite_info = {
+sprites = {
 	neutral_eyes = 80,
 	neutral_mouth = 83,
-	["big beardy man"] = {
+	base = {0, 0},
+	ear = {10, 0},
+	beardy = {
 		beard = 139,
 		collar = 122,
 		hair = 74,
-		hair_edge = 71,
+		hair_edge = {10, 1},
 		eyes = 206,
 		mouth = 93,
 	},
@@ -14,6 +16,14 @@ sprite_info = {
 		eyes = 26,
 		mouth = 29,
 	},
+	diver = {
+		helmet = {13, 0},
+		helmet_side = {13, 4},
+		bubbles_1 = 64,
+		bubbles_2 = 65,
+		bubbles_3 = 224,
+		bubbles_4 = 226,
+	}
 }
 
 function draw_rotated_anticlockwise(x, y, w_tiles, h_tiles, map_x, map_y, flip_y)
@@ -51,25 +61,25 @@ end
 function draw_base_left(x, y)
 	draw_rotated_anticlockwise(x, y,
 	                           10, 4,
-	                           0, 0)
+	                           sprites.base[1], sprites.base[2])
 end
 
 function draw_base_right(x, y)
 	draw_rotated_anticlockwise(x, y,
 	                           10, 4,
-	                           0, 0, true)
+	                           sprites.base[1], sprites.base[2], true)
 end
 
 function draw_ear_left(x, y)
 	draw_rotated_anticlockwise(x, y,
 	                           3, 1,
-	                           10, 0)
+	                           sprites.ear[1], sprites.ear[2])
 end
 
 function draw_ear_right(x, y)
 	draw_rotated_anticlockwise(x, y,
 	                           3, 1,
-	                           10, 0, true)
+	                           sprites.ear[1], sprites.ear[2], true)
 end
 
 function tiles(x)
@@ -78,10 +88,10 @@ end
 
 function draw_neutral_eyes(head_top, head_left, head_right)
 	function draw_neutral_eyes_left(x, y)
-		spr(sprite_info.neutral_eyes, x, y, 3, 3, true, false)
+		spr(sprites.neutral_eyes, x, y, 3, 3, true, false)
 	end
 	function draw_neutral_eyes_right(x, y)
-		spr(sprite_info.neutral_eyes, x, y, 3, 3, false, false)
+		spr(sprites.neutral_eyes, x, y, 3, 3, false, false)
 	end
 
 	draw_neutral_eyes_left(head_left + 3,              head_top + tiles(3))
@@ -90,10 +100,10 @@ end
 
 function draw_neutral_mouth(head_bottom, head_left, head_right)
 	function draw_neutral_mouth_left(x, y)
-		spr(sprite_info.neutral_mouth, x, y, 2, 3, false, false)
+		spr(sprites.neutral_mouth, x, y, 2, 3, false, false)
 	end
 	function draw_neutral_mouth_right(x, y)
-		spr(sprite_info.neutral_mouth, x, y, 2, 3, true, false)
+		spr(sprites.neutral_mouth, x, y, 2, 3, true, false)
 	end
 
 	draw_neutral_mouth_left(head_left + tiles(2),   head_bottom - tiles(4))
@@ -102,19 +112,19 @@ end
 
 function draw_priest(emotion, head_left, head_right, head_top, head_bottom)
 	function draw_collar_left(x, y)
-		spr(sprite_info.priest.collar, x, y, 5, 2, false, false)
+		spr(sprites.priest.collar, x, y, 5, 2, false, false)
 	end
 	function draw_collar_right(x, y)
-		spr(sprite_info.priest.collar, x, y, 5, 2, true, false)
+		spr(sprites.priest.collar, x, y, 5, 2, true, false)
 	end
 	function draw_priest_laughing_eyes_left(x, y)
-		spr(sprite_info.priest.eyes, x, y, 3, 3, true, false)
+		spr(sprites.priest.eyes, x, y, 3, 3, true, false)
 	end
 	function draw_priest_laughing_eyes_right(x, y)
-		spr(sprite_info.priest.eyes, x, y, 3, 3, false, false)
+		spr(sprites.priest.eyes, x, y, 3, 3, false, false)
 	end
 	function draw_priest_laughing_mouth(x, y)
-		spr(sprite_info.priest.mouth, x, y, 3, 3, false, false)
+		spr(sprites.priest.mouth, x, y, 3, 3, false, false)
 	end
 
 	-- base layer
@@ -139,37 +149,41 @@ end
 
 function draw_big_beardy_man(emotion, head_left, head_right, head_top, head_bottom)
 	function draw_collar_left(x, y)
-		spr(sprite_info["big beardy man"].collar, x, y, 5, 1, false, false)
+		spr(sprites.beardy.collar, x, y, 5, 1, false, false)
 	end
 	function draw_collar_right(x, y)
-		spr(sprite_info["big beardy man"].collar, x, y, 5, 1, true, false)
+		spr(sprites.beardy.collar, x, y, 5, 1, true, false)
 	end
 	function draw_beard_left(x, y)
-		spr(sprite_info["big beardy man"].beard, x, y, 5, 4, false, false)
+		spr(sprites.beardy.beard, x, y, 5, 4, false, false)
 	end
 	function draw_beard_right(x, y)
-		spr(sprite_info["big beardy man"].beard, x, y, 5, 4, true, false)
+		spr(sprites.beardy.beard, x, y, 5, 4, true, false)
 	end
 	function draw_hair_left(x, y)
-		spr(sprite_info["big beardy man"].hair, x, y, 3, 3, false, false)
+		spr(sprites.beardy.hair, x, y, 3, 3, false, false)
 	end
 	function draw_hair_right(x, y)
-		spr(sprite_info["big beardy man"].hair, x, y, 3, 3, true, false)
+		spr(sprites.beardy.hair, x, y, 3, 3, true, false)
 	end
 	function draw_hair_side_left(x, y)
-		draw_rotated_anticlockwise(x, y, 3, 2, 10, 1)
+		draw_rotated_anticlockwise(x, y, 3, 2, sprites.beardy.hair_edge[1],
+		                                       sprites.beardy.hair_edge[2])
 	end
 	function draw_hair_side_right(x, y)
-		draw_rotated_anticlockwise(x, y, 3, 2, 10, 1, true)
+		draw_rotated_anticlockwise(x, y, 3, 2,
+		                           sprites.beardy.hair_edge[1],
+		                           sprites.beardy.hair_edge[2],
+		                           true)
 	end
 	function draw_big_beardy_man_eyes_left(x, y)
-		spr(sprite_info["big beardy man"].eyes, x, y, 2, 3, true, false)
+		spr(sprites.beardy.eyes, x, y, 2, 3, true, false)
 	end
 	function draw_big_beardy_man_eyes_right(x, y)
-		spr(sprite_info["big beardy man"].eyes, x, y, 2, 3, false, false)
+		spr(sprites.beardy.eyes, x, y, 2, 3, false, false)
 	end
 	function draw_big_beardy_man_eyes_mouth(x, y)
-		spr(sprite_info["big beardy man"].mouth, x, y, 3, 2, false, false)
+		spr(sprites.beardy.mouth, x, y, 3, 2, false, false)
 	end
 
 	-- base layer
@@ -204,22 +218,24 @@ function draw_diver(emotion, head_left, head_right, head_top, head_bottom)
 	function draw_helmet_left(x, y)
 		draw_rotated_anticlockwise(x, y,
 		                           11, 4,
-		                           13, 0)
+		                           sprites.diver.helmet[1], sprites.diver.helmet[2])
 	end
 	function draw_helmet_right(x, y)
 		draw_rotated_anticlockwise(x, y,
 		                           11, 4,
-		                           13, 0, true)
+		                           sprites.diver.helmet[1], sprites.diver.helmet[2],
+		                           true)
 	end
 	function draw_side_left(x, y)
 		draw_rotated_anticlockwise(x, y,
 		                           6, 2,
-		                           13, 4)
+		                           sprites.diver.helmet_side[1], sprites.diver.helmet_side[2])
 	end
 	function draw_side_right(x, y)
 		draw_rotated_anticlockwise(x, y,
 		                           6, 2,
-		                           13, 4, true)
+		                           sprites.diver.helmet_side[1], sprites.diver.helmet_side[2],
+		                           true)
 	end
 
 	draw_helmet_left(head_left, head_top)
@@ -233,21 +249,21 @@ function draw_diver(emotion, head_left, head_right, head_top, head_bottom)
 		function ()
 			palt(12, false)
 			palt(1, true)
-			spr(64, bubbles_x, bubbles_y, 1, 1, false, false)
+			spr(sprites.diver.bubbles_1, bubbles_x, bubbles_y, 1, 1, false, false)
 			palt(12, false)
 			palt(1, false)
 		end,
 		function ()
 			palt(12, false)
 			palt(1, true)
-			spr(65, bubbles_x, bubbles_y, 1, 1, false, false)
+			spr(sprites.diver.bubbles_2, bubbles_x, bubbles_y, 1, 1, false, false)
 			palt(12, false)
 			palt(1, false)
 		end,
 		function ()
 			palt(12, false)
 			palt(1, true)
-			spr(224, bubbles_x, bubbles_y - tiles(1), 2, 2, false, false)
+			spr(sprites.diver.bubbles_3, bubbles_x, bubbles_y - tiles(1), 2, 2, false, false)
 			palt(12, false)
 			palt(1, false)
 		end,
@@ -255,7 +271,7 @@ function draw_diver(emotion, head_left, head_right, head_top, head_bottom)
 			palt(12, true)
 			palt(1, false)
 			pal(1, 12)
-			spr(224, bubbles_x, bubbles_y - tiles(1), 2, 2, false, false)
+			spr(sprites.diver.bubbles_3, bubbles_x, bubbles_y - tiles(1), 2, 2, false, false)
 			pal(1)
 			palt(12, false)
 			palt(1, false)
@@ -263,7 +279,7 @@ function draw_diver(emotion, head_left, head_right, head_top, head_bottom)
 		function ()
 			palt(12, false)
 			palt(1, true)
-			spr(224, bubbles_x, bubbles_y - tiles(1), 2, 2, false, false)
+			spr(sprites.diver.bubbles_4, bubbles_x, bubbles_y - tiles(1), 2, 2, false, false)
 			palt(12, false)
 			palt(1, false)
 		end,
@@ -271,7 +287,7 @@ function draw_diver(emotion, head_left, head_right, head_top, head_bottom)
 			palt(12, true)
 			palt(1, false)
 			pal(1, 12)
-			spr(64, bubbles_x, bubbles_y, 1, 1, false, false)
+			spr(sprites.diver.bubbles_1, bubbles_x, bubbles_y, 1, 1, false, false)
 			pal(1)
 			palt(12, false)
 			palt(1, false)
@@ -284,7 +300,11 @@ function draw_diver(emotion, head_left, head_right, head_top, head_bottom)
 end
 
 function draw_clown(emotion, head_left, head_right, head_top, head_bottom)
-
+	-- base layer
+	draw_base_left(head_left,              head_top)
+	draw_base_right(head_right - tiles(4), head_top)
+	draw_ear_left(head_left - tiles(1) + 1, head_top + tiles(3))
+	draw_ear_right(head_right - 1,          head_top + tiles(3))
 end
 
 function draw_head(name, emotion)
@@ -294,6 +314,7 @@ function draw_head(name, emotion)
 	-- name = "big beardy man"
 	-- name = "priest"
 	name = "diver"
+	-- name = "clown"
 
 	-- setup
 	pal()
@@ -319,5 +340,7 @@ function draw_head(name, emotion)
 		draw_big_beardy_man(emotion, head_left, head_right, head_top, head_bottom)
     elseif name == "diver" then
 		draw_diver(emotion, head_left, head_right, head_top, head_bottom)
+	elseif name == "clown" then
+		draw_clown(emotion, head_left, head_right, head_top, head_bottom)
 	end
 end
