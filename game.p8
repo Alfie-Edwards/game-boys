@@ -457,7 +457,7 @@ function add_timer(length, action, cond)
         action = action,
         cond = cond,
     })
-end 
+end
 
 function show_person(face_idx, skin_tone, name)
 	say("set person to "..name..", idx "..face_idx..", skin tone "..skin_tone)
