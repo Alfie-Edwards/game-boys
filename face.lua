@@ -410,13 +410,14 @@ function draw_clown(emotion, head_left, head_right, head_top, head_bottom)
 	if emotion == "neutral" then
 		draw_neutral_eyes(head_top, head_left, head_right)
 	else
+		palt(14, true)
+		palt(8, true)
 		if emotion == "angry" then
 			palt(2, true)
 			palt(3, true)
 			palt(5, true)
 			palt(6, true)
 			palt(7, true)
-			palt(8, true)
 		else
 			palt(0, true)
 			palt(1, true)
@@ -424,7 +425,6 @@ function draw_clown(emotion, head_left, head_right, head_top, head_bottom)
 			palt(5, true)
 			palt(6, true)
 			palt(7, true)
-			palt(8, true)
 		end
 		sprites.clown.eyes(
 			head_left + tiles(1) - 5,
