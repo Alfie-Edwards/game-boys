@@ -292,9 +292,15 @@ function _draw()
 	print(health_str, 128 - (lnpx(health_str) + 2), 4)
 
     -- person name
-	color(7)
     local name = current_person().name
-    print(name, (128 - lnpx(name)) / 2, 2)
+	color(0)
+    local x = (128 - lnpx(name)) / 2
+    print(name, x, 3)
+    print(name, x - 1, 3)
+    print(name, x + 1, 3)
+    print(name, x, 4)
+	color(7)
+    print(name, x, 2)
 
     -- score
 	color(6)
