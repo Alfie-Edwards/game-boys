@@ -20,24 +20,25 @@ people = {
 			"hey there hahaha",
 			"oops, hope i didn't scare you!",
 			"my laugh scares everyone away...",
-			"i want a cute little laugh, so i don't sound so scary"
+			"i want a cute, sweet little laugh, one that doesn't sound so scary",
 		},
 		adjustment_prompts = {
 			pitch = {
 				more = "well that just sounds like my old laugh!",
 			},
 			speed = {
-				more = "for what i need, it must be quicker than that",
+				more = "i can't spend all my time laughing, i need to seize the moment",
 			},
 			length = {
-				less = "i was hoping my laugh wouldn't stick around in and out like a flash!",
+				less = {"i was hoping my laugh wouldn't stick around",
+				        "in and out like a flash!"},
 			},
 			fun = {
-				more = "oh no! i wanted a silly laugh!",
+				more = "where's the verve! folks should know i'm enjoying myself",
 			},
 		},
 		acceptance_text = "wow, that's perfect!! Now no one will know i'm a threat",
-		rejection_text = "that's too bad, i really wanted a new laugh. i hope they don't catch me",
+		rejection_text = "that's too bad, i really needed a new laugh. i hope they don't catch me",
 		screen_pal = { [12] = -2, [14] = -17, [15] = 9 },
 	},
 	{
@@ -100,16 +101,16 @@ people = {
 			"i need a laugh for a dolphin comedy show, dolphin comedy is no laughing matter!"},
 		adjustment_prompts = {
 			pitch = {
-				more = "i'm not going to a show for whales!"
+				more = "i'm not going to a show for whales!",
 			},
 			speed = {
-				more = "dontcha think that sounds more like a fire alarm than a dolphin?"
+				more = "dontcha think that sounds more like a fire alarm than a dolphin?",
 			},
 			length = {
-				less = "this feels too wild. i'm just the audience, it's not about me"
+				less = "this feels too wild. i'm just the audience, it's not about me",
 			},
 			fun = {
-				less = "please. this is very important to me. not some joke"
+				less = "please. this is very important to me. not just some joke",
 			},
 		},
 		acceptance_text = {"that's amazing! I'll fit right in", "they'll never call me land lubber again"},
@@ -134,23 +135,23 @@ people = {
 		},
 		initial_prompt = {
 			"hey hey! i'm bobo, world famous entertainer and fun for all the family!",
-			"no one takes me seriously! i need a sensible, reasonable laugh. like goldilocks!"},
+			"no one takes me seriously! i need a sensible, reasonable laugh. a real goldilocks! hahaha"},
 		adjustment_prompts = {
 			pitch = {
-				less = "no no, that's squeakier than my nose!",
 				more = "i always felt more like a tenor than a baritone",
+				less = "no no, that's squeakier than my nose!",
 			},
 			speed = {
-				less = "is that rushing? it sounds like rushing to me, don't rush my laugh",
-				more = "is that dragging? i think it was dragging, don't drag my laugh",
+				more = "is that dragging? i think it was dragging. don't drag my laugh, rupaul",
+				less = "is that rushing? it sounds like rushing to me. don't rush my laugh, salman",
 			},
 			length = {
+				more = "not much of a laugh, is it. more like a bark. could i have a little more?",
 				less = "wow, that really goes on huh. on and on... just... keeps... going...",
-				more = "not much of a laugh, is it. more like a bark. could i have some more?",
 			},
 			fun = {
+				more = "c'mon, it's a laugh. it's gotta be a little jovial!",
 				less = "i want to laugh at the joke. not be the joke.",
-				more = "it's a laugh. it's gotta be a little jovial!",
 			},
 		},
 		acceptance_text = {"finally! now i can do what i've always wanted", "be an undertaker, like my father"},
