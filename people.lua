@@ -209,6 +209,7 @@ current_person_index = 0
 adjustment_number = 0 -- 0 == 'initial prompt'
 people_sequencing = {}
 ready_for_next_person = false
+current_emotion = "neutral"
 
 
 -- functions -------------------
@@ -217,13 +218,6 @@ function shuffle_people_sequence()
 		local j = flr(rnd(i - 1)) + 1
 		people_sequencing[i], people_sequencing[j] = people_sequencing[j], people_sequencing[i]
 	end
-end
-
-function current_emotion() -- "neutral", "laughing", "angry", any others?
-	if laughing then
-		return "laughing"
-	end
-	return "neutral"
 end
 
 function current_person()
@@ -235,6 +229,7 @@ function next_person()
 	if (current_person_index == 1) shuffle_people_sequence()
 	adjustment_number = 0
 	person_state = "entering"
+	current_emotion = "neutral"
 end
 
 function init_people()
@@ -298,6 +293,7 @@ function accept()
 	show_accepted(current_person().acceptance_text,
 	              current_person().desired_laugh)
 	person_state = "leaving"
+	current_emotion = "laughing"
 end
 
 function reject()
@@ -306,6 +302,7 @@ function reject()
 		lose()
 	end
 	person_state = "leaving"
+	current_emotion = "angry"
 end
 
 function choose(choice)

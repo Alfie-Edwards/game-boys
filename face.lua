@@ -371,10 +371,6 @@ end
 function draw_head(name, emotion)
 	if (emotion == nil) emotion = "neutral"
 
-	-- -- TODO #temp
-	-- name = "diver"
-	-- name = "priest"
-
 	-- setup
 	palt(0, false)
 	palt(13, true)

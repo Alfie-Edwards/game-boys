@@ -320,7 +320,7 @@ function _draw()
 
 	-- Head
     camera(0, head_y_offset)
-	draw_head(current_person().name, current_emotion())
+	draw_head(current_person().name, current_emotion)
     camera()
 
     -- Laugh maker
