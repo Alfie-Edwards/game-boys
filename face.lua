@@ -188,9 +188,7 @@ end
 function set_display_pal(name)
 	local dpal = get_person(name).screen_pal
 
-	for old,new in pairs(dpal) do
-		pal(old, new, 1)
-	end
+	pal(dpal, 1)
 end
 
 function tiles(x)

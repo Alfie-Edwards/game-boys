@@ -306,7 +306,6 @@ function wrap(text)
 end
 
 function _draw()
-    draw_bg()
 
     if not started then
         draw_start_screen()
@@ -318,24 +317,41 @@ function _draw()
 		return
 	end
 
+    draw_bg()
+
+	-- health
+    rectfill(9, 23, 22, 43, 0)
+	local health_str = ""
+	for i = 0, health - 1 do
+		health_str = health_str.."♥\n"
+	end
+	print(health_str, 13, 25, 11)
+
+    -- score
+    rectfill(9, 2, 22, 20, 0)
+	color(3)
+    local offset = lnpx(score) + 12
+    pset(offset + 1, 5)
+    pset(offset + 3, 5)
+    pset(offset, 7)
+    line(offset + 1, 8, offset + 3, 8)
+    pset(offset + 4, 7)
+    print(score, 11, 4)
+
 	-- Head
     camera(0, head_y_offset)
 	draw_head(current_person().name, current_emotion)
     camera()
 
     -- Laugh maker
-    color(1)
-    rectfill(0, 98, 127, 127)
+    rectfill(0, 98, 127, 127, 11)
     for name, slider in pairs(sliders) do
-        color(5)
-        print(name, slider.name_x, slider.y)
-        color(4)
-        line(40, slider.y + 2, 80, slider.y + 2)
-        color(5)
+        print(name, slider.name_x, slider.y, 0)
+        line(40, slider.y + 2, 80, slider.y + 2, 0)
         local h = slider_handle_pos(slider)
-        rectfill(h.x - 1, h.y - 1, h.x + 1, h.y + 1)
+        rectfill(h.x - 1, h.y - 1, h.x + 1, h.y + 1, 10)
     end
-    color(5)
+
     -- todo: palette swap on mouse over.
     if (mouse_is_over_button(buttons.submit)) then
         spr(69, buttons.submit.x - 8, buttons.submit.y - 8, 2, 2)
@@ -345,7 +361,7 @@ function _draw()
 
     -- Speech bubble
     if saying then
-        color(5)
+        color(0)
         rectfill(7, 93, 120, 123)
         rectfill(4, 96, 123, 120)
         circfill(7, 96, 3)
@@ -354,47 +370,25 @@ function _draw()
         circfill(120, 120, 3)
         print("◆", 12, 90)
 
-		color(1)
-		print(sub(saying.paras[saying.para], 1, saying.char), 8, 97)
+		print(sub(saying.paras[saying.para], 1, saying.char), 8, 97, 2)
 
 		if saying_para_done() and strobe(0.66, t_para_completed) then
-			color(5)
-			print("♥", 111, 124)
-			color(4)
-			print("♥", 111, 122)
+			print("♥", 109, 121, 5)
 		end
 	end
 
-	-- health
-	color(8)
-	local health_str = ""
-	for i = 0, health - 1 do
-		health_str = health_str.."♥"
-	end
-	print(health_str, 128 - (lnpx(health_str) + 2), 4)
-
     -- person name
     local name = current_person().name
-	color(0)
+	color(2)
     print_centered(name, 3)
     print_centered(name, 3, -1)
     print_centered(name, 3, 1)
     print_centered(name, 4)
-	color(7)
+	color(0)
     print_centered(name, 2)
 
-    -- score
-	color(6)
-    local offset = lnpx(score) + 5
-    pset(offset + 1, 5)
-    pset(offset + 3, 5)
-    pset(offset, 7)
-    line(offset + 1, 8, offset + 3, 8)
-    pset(offset + 4, 7)
-    print(score, 4, 4)
-
     -- Cursor
-    color(0)
+    color(1)
     circfill(mouse.x, mouse.y, 1)
 end
 
