@@ -55,7 +55,7 @@ people = {
 			speed = 0,
 			pitch = 0,
 			fun = 0,
-			length = 0,
+			length = 2,
 		},
 		initial_prompt = {
 			"greetings my child",

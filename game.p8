@@ -111,23 +111,6 @@ function _update60()
         return
     end
 
-    if saying then
-        if saying_para_done() then
-            if any_input() then
-                saying.para += 1
-                saying.char = 1
-                if saying.para > #saying.paras then
-                    saying = nil
-                end
-            end
-        else
-            saying.char = saying.char + 1
-            if saying.char == #saying.paras then
-                t_para_completed = t()
-            end
-        end
-    end
-
     if not (animating or saying) then
 
         if person_state == "entering" and head_y_offset == -128 then
@@ -184,6 +167,23 @@ function _update60()
             end
         end
     end
+
+    if saying then
+        if saying_para_done() then
+            if any_input() then
+                saying.para += 1
+                saying.char = 1
+                if saying.para > #saying.paras then
+                    saying = nil
+                end
+            end
+        else
+            saying.char = saying.char + 1
+            if saying.char == #saying.paras then
+                t_para_completed = t()
+            end
+        end
+    end
 end
 
 function nearest_slider_value(slider)
@@ -222,47 +222,48 @@ function mouse_is_over_button(button)
 end
 
 function draw_lose_screen()
+    cls(11)
 	local lost_text = "you lost!"
 	local lost_text_y = 40
 
 	local score_start_text = "you made "
 	local score_end_text = " laughs"
 	local score_text_y = 60
-	local score_col = 10
+	local score_col = 0
 
-	local replay_start_text = "press "
-	local replay_button = "❎"
-	local replay_end_text = " to play again"
+	local replay_start_text = "PRESS "
+	local replay_button = "ANY BUTTON"
+	local replay_end_text = " TO CONTINUE..."
 	local replay_text_y = 80
-	local replay_col = -5
+	local replay_col = 0
 
-	color(7)
+	color(10)
 	print(lost_text, 64 - lnpx(lost_text) / 2, lost_text_y)
 
 	local score_text_length = lnpx(score_start_text..score..score_end_text)
 	print(score_start_text, 64 - score_text_length / 2, score_text_y)
 	color(score_col)
 	print(score, (64 - score_text_length / 2) + lnpx(score_start_text), score_text_y)
-	color(7)
+	color(10)
 	print(score_end_text, (64 - score_text_length / 2) + lnpx(score_start_text..score), score_text_y)
 
 	local replay_text_length = lnpx(replay_start_text..replay_button..replay_end_text)
 	print(replay_start_text, 64 - replay_text_length / 2, replay_text_y)
 	color(replay_col)
 	print(replay_button, (64 - replay_text_length / 2) + lnpx(replay_start_text), replay_text_y)
-	color(7)
+	color(10)
 	print(replay_end_text, (64 - replay_text_length / 2) + lnpx(replay_start_text..replay_button), replay_text_y)
 end
 
 function draw_start_screen()
-    cls(1)
+    cls(11)
 
-    color(0)
+    color(14)
     print_centered("make m'laff", 60)
-    color(5)
+    color(0)
     print_centered("make m'laff", 59)
 
-    color(1)
+    color(14)
     if strobe(0.66) then
         print_centered("PRESS ANY BUTTON...", 100)
     end
