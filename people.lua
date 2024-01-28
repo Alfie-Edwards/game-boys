@@ -38,6 +38,7 @@ people = {
 		},
 		acceptance_text = "wow, that's perfect!! Now no one will know i'm a threat",
 		rejection_text = "that's too bad, i really wanted a new laugh. i hope they don't catch me",
+		screen_pal = { [13] = -2, [14] = -17, [15] = 9 },
 	},
 	{
 		name = "priest",
@@ -75,6 +76,7 @@ people = {
 		},
 		acceptance_text = "a thousand blessings!! now i can terrify everyone at the rectory",
 		rejection_text = "god tests us all child, and we cannot always succeed",
+		screen_pal = { [13] = -2, [14] = -7, [15] = -16 },
 	},
 	{
 		name = "diver",
@@ -112,6 +114,7 @@ people = {
 		},
 		acceptance_text = {"that's amazing! I'll fit right in", "they'll never call me land lubber again"},
 		rejection_text = {"no, no... this won't do at all...", "well, i guess there's always catfish cabaret"},
+		screen_pal = { [15] = 12 },
 	},
 	{
 		name = "bobo the clown",
@@ -152,6 +155,7 @@ people = {
 		},
 		acceptance_text = {"finally! now i can do what i've always wanted", "be an undertaker, like my father"},
 		rejection_text = "well, i guess everyone will keep laughing at ol' bobo...",
+		screen_pal = { [13] = 8, [14] = -9, [15] = 12 },
 	},
 	-- {
 	-- 	name = "bob",

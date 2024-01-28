@@ -90,7 +90,6 @@ function _update60()
     local i = 1
     while i <= #timers do
         if ((t() - timers[i].t0) >= timers[i].length) and (timers[i].cond == nil or timers[i].cond()) then
-            printh("exec timer")
             timers[i].action()
             deli(timers, i)
         else
