@@ -11,6 +11,8 @@ sprite_info = {
 	},
 	priest = {
 		collar = 101,
+		eyes = 26,
+		mouth = 29,
 	},
 }
 
@@ -128,14 +130,31 @@ function draw_priest(emotion, head_left, head_right, head_top, head_bottom)
 	function draw_collar_right(x, y)
 		spr(sprite_info.priest.collar, x, y, 5, 2, true, false)
 	end
+	function draw_priest_laughing_eyes_left(x, y)
+		spr(sprite_info.priest.eyes, x, y, 3, 3, true, false)
+	end
+	function draw_priest_laughing_eyes_right(x, y)
+		spr(sprite_info.priest.eyes, x, y, 3, 3, false, false)
+	end
+	function draw_priest_laughing_mouth(x, y)
+		spr(sprite_info.priest.mouth, x, y, 3, 3, false, false)
+	end
 
 	-- base layer
 	draw_base_left(head_left,              head_top)
 	draw_base_right(head_right - tiles(4), head_top)
 	draw_ear_left(head_left - tiles(1) + 1, head_top + tiles(3))
 	draw_ear_right(head_right - 1,          head_top + tiles(3))
-	draw_neutral_eyes(head_top, head_left, head_right)
-	draw_neutral_mouth(head_bottom, head_left, head_right)
+
+	if emotion == "laughing" then
+		draw_priest_laughing_eyes_left(head_left + 4, head_top + tiles(3))
+		draw_priest_laughing_eyes_right(head_right - tiles(3) - 4, head_top + tiles(3))
+		draw_priest_laughing_mouth(64 - tiles(1.5) - 1, head_bottom - tiles(4) - 1)
+	else
+		draw_neutral_eyes(head_top, head_left, head_right)
+		draw_neutral_mouth(head_bottom, head_left, head_right)
+	end
+
 
 	-- features
 	draw_collar_left(64 - tiles(5),  head_bottom - tiles(1))
@@ -242,8 +261,8 @@ function draw_head(name, emotion)
 	if (emotion == nil) emotion = "neutral"
 
 	-- TODO #temp
-	name = "big beardy man"
-	-- name = "priest"
+	-- name = "big beardy man"
+	name = "priest"
     -- name = "diver"
 
 	-- setup
