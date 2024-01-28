@@ -178,6 +178,21 @@ sprites = {
 	},
 }
 
+function get_person(name)
+	for p in all(people) do
+		if (p.name == name) return p
+	end
+	return nil
+end
+
+function set_display_pal(name)
+	local dpal = get_person(name).screen_pal
+
+	for old,new in pairs(dpal) do
+		pal(old, new, 1)
+	end
+end
+
 function tiles(x)
 	return x * 8
 end
@@ -247,6 +262,8 @@ function draw_neutral_mouth(head_bottom, head_left, head_right)
 end
 
 function draw_priest(emotion, head_left, head_right, head_top, head_bottom)
+	set_display_pal("priest")
+
 	-- base layer
 	sprites.base(head_left, head_top)
 	draw_ears(head_left, head_right, head_top)
@@ -262,9 +279,13 @@ function draw_priest(emotion, head_left, head_right, head_top, head_bottom)
 
 	-- features
 	sprites.priest.collar(head_left - tiles(1), head_bottom - tiles(1))
+
+	pal(1) -- reset display palette
 end
 
 function draw_big_beardy_man(emotion, head_left, head_right, head_top, head_bottom)
+	set_display_pal("big beardy man")
+
 	-- base layer
 	sprites.base(head_left, head_top)
 	draw_ears(head_left, head_right, head_top)
@@ -288,9 +309,13 @@ function draw_big_beardy_man(emotion, head_left, head_right, head_top, head_bott
 	if emotion ~= "neutral" then
 		sprites.beardy.mouth(64 - tiles(1.5), head_bottom - tiles(3))
 	end
+
+	pal(1) -- reset display palette
 end
 
 function draw_diver(emotion, head_left, head_right, head_top, head_bottom)
+	set_display_pal("diver")
+
 	sprites.diver.helmet(head_left, head_top)
 	sprites.diver.helmet_side(
 		head_left - tiles(2) + 1,
@@ -303,9 +328,13 @@ function draw_diver(emotion, head_left, head_right, head_top, head_bottom)
 	local bubbles_stage = flr((t() * 5) % #sprites.diver.bubbles) + 1
 
 	sprites.diver.bubbles[bubbles_stage](bubbles_x, bubbles_y)
+
+	pal(1) -- reset display palette
 end
 
 function draw_clown(emotion, head_left, head_right, head_top, head_bottom)
+	set_display_pal("bobo the clown")
+
 	-- underneath features
 	sprites.clown.collar(head_left + tiles(0.5), head_bottom - tiles(2))
 
@@ -330,6 +359,8 @@ function draw_clown(emotion, head_left, head_right, head_top, head_bottom)
 		head_left - tiles(1.5),
 		head_right - tiles(2.5),
 		head_top - tiles(1))
+
+	pal(1) -- reset display palette
 end
 
 function draw_head(name, emotion)
@@ -339,7 +370,7 @@ function draw_head(name, emotion)
 	-- name = "big beardy man"
 	-- name = "priest"
 	-- name = "diver"
-	name = "clown"
+	-- name = "clown"
 
 	-- setup
 	palt(0, false)
@@ -364,7 +395,7 @@ function draw_head(name, emotion)
 		draw_big_beardy_man(emotion, head_left, head_right, head_top, head_bottom)
     elseif name == "diver" then
 		draw_diver(emotion, head_left, head_right, head_top, head_bottom)
-	elseif name == "clown" then
+	elseif name == "bobo the clown" then
 		draw_clown(emotion, head_left, head_right, head_top, head_bottom)
 	end
 end
