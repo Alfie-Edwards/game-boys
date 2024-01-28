@@ -403,11 +403,38 @@ function draw_clown(emotion, head_left, head_right, head_top, head_bottom)
 		draw_neutral_mouth(head_bottom, head_left, head_right)
 		draw_neutral_eyes(head_top, head_left, head_right)
 	else
-		sprites.clown.mouth(head_left + tiles(2.5), head_bottom - tiles(4))
+		if emotion == "angry" then
+			palt(2, true)
+			palt(3, true)
+			palt(5, true)
+			palt(6, true)
+			palt(7, true)
+		else
+			palt(0, true)
+		end
 		sprites.clown.eyes(
 			head_left + tiles(1) - 5,
 			head_right - tiles(3) - 3,
 			head_top + tiles(3))
+		reset_palt()
+
+		if emotion == "angry" then
+			palt(3, true)
+			palt(11, true)
+			palt(12, true)
+			palt(6, true)
+			palt(14, true)
+			palt(15, true)
+			palt(10, true)
+			palt(2, true)
+		else
+			palt(3, true)
+			palt(11, true)
+			palt(12, true)
+			palt(5, true)
+		end
+		sprites.clown.mouth(head_left + tiles(2.5), head_bottom - tiles(4))
+		reset_palt()
 	end
 	sprites.clown.nose(head_left + tiles(3), head_top + tiles(4.5))
 
