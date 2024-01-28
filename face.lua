@@ -172,11 +172,6 @@ function draw_big_beardy_man(emotion, head_left, head_right, head_top, head_bott
 		spr(sprite_info["big beardy man"].mouth, x, y, 3, 2, false, false)
 	end
 
-	-- palette
-	-- pal(8, 1)
-	-- pal(14, -4)
-	-- pal(10, -7)
-
 	-- base layer
 	draw_base_left(head_left,              head_top)
 	draw_base_right(head_right - tiles(4), head_top)
@@ -286,6 +281,10 @@ function draw_diver(emotion, head_left, head_right, head_top, head_bottom)
 	local bubbles_stage = flr((t() * 5) % #bubbles_stages) + 1
 
 	bubbles_stages[bubbles_stage]()
+end
+
+function draw_clown(emotion, head_left, head_right, head_top, head_bottom)
+
 end
 
 function draw_head(name, emotion)

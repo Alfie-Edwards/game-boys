@@ -214,7 +214,7 @@ function shuffle_people_sequence()
 	end
 end
 
-function current_emotion()
+function current_emotion() -- "neutral", "laughing", "angry", any others?
 	if laughing then
 		return "laughing"
 	end
